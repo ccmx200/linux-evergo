@@ -1,0 +1,3 @@
+dmesg | grep -E "FWDL-DBG: sec\[|FWDL-DBG: ram_entry|FWDL ring" | tail -12
+echo "=== ring state ==="
+dmesg | grep -iE "CIDX|DIDX|prefetch|DMASHDL" | tail -4

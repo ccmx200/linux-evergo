@@ -1,0 +1,7 @@
+ls -l /bin/sleep /bin/busybox
+/bin/busybox sleep 1; echo "bb_sleep_rc=$?"
+/bin/busybox usleep 100000; echo "bb_usleep_rc=$?"
+/bin/busybox sleep 8; echo "bb_sleep8_rc=$?"
+which sleep; echo rc_which=$?
+ls /dev/watchdog
+exit

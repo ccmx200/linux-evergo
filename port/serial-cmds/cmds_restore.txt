@@ -1,0 +1,10 @@
+cat /proc/version
+echo "=== idle (MCU booted?) ==="
+echo "r 0x18002600" > /proc/conn_reg
+sleep 1
+dmesg | grep -iE "reg r 0x18002600|idle loop" | tail -2
+echo "=== eco ==="
+dmesg | grep -iE "Chip ID\[" | tail -2
+echo "=== fw ==="
+dmesg | grep -iE "FW_START|Fail reason|probe success" | tail -3
+ls /sys/class/net

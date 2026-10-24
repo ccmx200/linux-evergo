@@ -1,0 +1,4 @@
+echo === PATCH DOWNLOAD OVER STP ===
+echo 1 > /proc/conn_patchdl
+sleep 15
+dmesg | grep -E "patchdl:" | tail -12

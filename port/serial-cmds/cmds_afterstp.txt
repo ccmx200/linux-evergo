@@ -1,0 +1,8 @@
+P=/sys/module/mt6833_conn/parameters
+echo === REPLAY PROBE AFTER STP ===
+echo 1 > $P/replay_probe
+echo 1 > /proc/conn_cycle
+sleep 12
+dmesg | grep -iE "DRIVER OWN Done|Fail reason|ready_bits|ram_entry|EMI copy|wlan0|net_device" | tail -10
+echo === NET ===
+ls /sys/class/net

@@ -1,0 +1,5 @@
+dmesg | grep -iE "consys|mt6833|vcn" | head -30
+ls /sys/bus/platform/drivers/ | grep -i conn
+ls -l /sys/bus/platform/drivers/mt6833-conn/ 2>/dev/null
+cat /sys/kernel/debug/regulator/regulator_summary 2>/dev/null | head -25
+dmesg | grep -iE "deferred|probe.*fail" | head -20

@@ -1,0 +1,8 @@
+echo "=== f2fs magic @1024 (expect 10 20 f5 f2) ==="
+dd if=/dev/sdc bs=1 skip=1024 count=4 2>/dev/null | hexdump -C
+echo "=== first 64 bytes @0 ==="
+dd if=/dev/sdc bs=1 count=64 2>/dev/null | hexdump -C | head -4
+echo "=== f2fs dmesg ==="
+dmesg | grep -i f2fs | tail -6
+echo "=== try mount ==="
+mount -t f2fs -o ro /dev/sdc /mnt 2>&1

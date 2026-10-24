@@ -1,0 +1,2 @@
+echo === CONTEXT AROUND FAILURE ===
+dmesg | grep -E "^\[    [0-9]\.[0-9]+\].*wlan" | tail -40

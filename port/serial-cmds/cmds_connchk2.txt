@@ -1,0 +1,1 @@
+dmesg | grep -iE "mt6833-conn" | grep -viE "hifpdma|conon \+|hif70|topmisc|spm|rgu|pdma \+" | head -16

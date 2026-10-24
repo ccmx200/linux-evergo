@@ -1,0 +1,16 @@
+echo === BEFORE ===
+echo "r 0x18007000" > /proc/conn_reg
+echo "r 0x18007004" > /proc/conn_reg
+sleep 1
+echo === WRITE BIT9 (FW_OWN_REQ_CLR) ===
+echo "w 0x18007000 0x00030201" > /proc/conn_reg
+sleep 1
+echo "r 0x18007000" > /proc/conn_reg
+echo "r 0x18007004" > /proc/conn_reg
+sleep 1
+echo === WRITE BIT8 (FW_OWN_REQ_SET) ===
+echo "w 0x18007000 0x00030101" > /proc/conn_reg
+sleep 1
+echo "r 0x18007000" > /proc/conn_reg
+sleep 1
+dmesg | grep "reg " | tail -10

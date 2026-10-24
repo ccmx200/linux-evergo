@@ -1,0 +1,7 @@
+ls -l /tmp/n.ko.xz /tmp/push.b64 2>/dev/null
+echo === expected xz 811292, b64 chars 1081722 ===
+wc -c /tmp/push.b64 2>/dev/null
+echo === try decode ===
+base64 -d /tmp/push.b64 > /tmp/n2.ko.xz 2>&1
+ls -l /tmp/n2.ko.xz
+xz -t /tmp/n2.ko.xz && echo XZ_OK || echo XZ_BAD

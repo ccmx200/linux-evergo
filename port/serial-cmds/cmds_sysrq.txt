@@ -1,0 +1,2 @@
+echo SYSRQ_REBOOT
+echo b > /proc/sysrq-trigger

@@ -1,0 +1,10 @@
+echo === WF SYSRAM / HIF PDMA ===
+echo "r 0x18070000" > /proc/conn_reg
+echo "r 0x18004000" > /proc/conn_reg
+echo "r 0x18004004" > /proc/conn_reg
+sleep 2
+dmesg | grep "reg r 0x1807\|reg r 0x1800" | tail -4
+echo === MCU SRAM via n9 ===
+echo "r 0x18071000" > /proc/conn_reg
+sleep 1
+dmesg | grep "reg r 0x18071" | tail -2

@@ -1,0 +1,11 @@
+P=/sys/module/mt6833_conn/parameters
+echo TRY_WFSYS_START
+echo 1 > $P/wf_pwr_ctl_write
+echo 1 > $P/wf_cpu_rst_write
+echo 0 > $P/minimal
+echo 1 > $P/replay_probe
+echo 1 > /proc/conn_cycle
+sleep 6
+dmesg | grep -iE "WFSYS:|replay|DRIVER OWN Done|Fail reason|ready_bits|FW download|release manifest" | tail -14
+echo TRY_WFSYS_END
+ls /sys/class/net

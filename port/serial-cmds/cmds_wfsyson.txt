@@ -1,0 +1,3 @@
+dmesg | grep -iE "WFSYS:" | head -12
+dmesg | grep -iE "idle check|Driver own timeout|probe failed" | head -6
+ls /sys/class/net/

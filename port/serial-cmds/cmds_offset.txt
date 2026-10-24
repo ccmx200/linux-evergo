@@ -1,0 +1,10 @@
+echo "=== sdc at 12352 MiB (userdata start) ==="
+dd if=/dev/sdc bs=1M skip=12352 count=1 2>/dev/null | hexdump -C | head -4
+echo "=== f2fs magic at userdata+1024 ==="
+dd if=/dev/sdc bs=1 skip=$((12352*1048576+1024)) count=8 2>/dev/null | hexdump -C
+echo "=== ext4 magic at userdata+1080 ==="
+dd if=/dev/sdc bs=1 skip=$((12352*1048576+1080)) count=2 2>/dev/null | hexdump -C
+echo "=== try mount with offset (f2fs) ==="
+mkdir -p /newroot
+mount -t f2fs -o ro,offset=$((12352*1048576)) /dev/sdc /newroot 2>&1
+ls /newroot 2>/dev/null | head -8

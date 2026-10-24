@@ -1,0 +1,10 @@
+echo === PROBE ===
+ls /proc/conn_cycle
+ls /sys/module/mt6833_conn/parameters/
+echo === BASELINE (steps as compiled) ===
+dmesg | grep -iE "CPU state" | tail -2
+echo === CYCLE steps=0 ===
+echo 0 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+dmesg | grep -iE "conn_cycle|CPU state" | tail -4

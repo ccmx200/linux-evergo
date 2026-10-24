@@ -1,0 +1,5 @@
+echo "=== vendor ROM patch offsets (authoritative) ==="
+dmesg | grep -iE "Rom Patch|RomPatch" | head -20
+echo
+echo "=== patch info from userspace ==="
+dmesg | grep -iE "patch.*offset|EmiOffset|patch name|full patch" | head -10

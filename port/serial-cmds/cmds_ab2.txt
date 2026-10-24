@@ -1,0 +1,5 @@
+dmesg | grep -E "DRIVER OWN Done|Fail reason|Chip No Ack|ram_entry|WIFI_START" | tail -8
+echo === EMI REMAP ===
+dmesg | grep -E "EMI remap" | tail -2
+echo === NET ===
+ls /sys/class/net

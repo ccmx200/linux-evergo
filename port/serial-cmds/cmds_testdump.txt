@@ -1,0 +1,8 @@
+echo === ALIVE ===
+cat /proc/version
+echo === CONON ===
+dmesg | grep -iE "conon \+0x(000|100|120|140|160|180|1a0|1c0|1e0|200|420|440|4a0|4c0|500|560|600):" | head -25
+echo === IDLE ===
+dmesg | grep -iE "idle check|monflg" | head -4
+echo === NET ===
+ls /sys/class/net/

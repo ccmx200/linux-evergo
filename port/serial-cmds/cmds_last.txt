@@ -1,0 +1,13 @@
+echo === IDLE ===
+dmesg | grep -iE "idle check|infra gate" | head -3
+echo === WFSYS ===
+dmesg | grep -iE "WFSYS:" | head -5
+echo === OWN ===
+dmesg | grep -iE "DRIVER OWN|own back|Fail reason|wlanAdapterStart|ready bit|NIC cap" | tail -8
+echo === HIF ===
+echo "r 0x18007004" > /proc/conn_reg
+echo "r 0x18007008" > /proc/conn_reg
+sleep 1
+dmesg | grep -E "reg r 0x1800700" | tail -4
+echo === NET ===
+ls /sys/class/net

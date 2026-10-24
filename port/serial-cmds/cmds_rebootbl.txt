@@ -1,0 +1,4 @@
+cat /proc/sys/kernel/reboot-mode 2>/dev/null; echo rm_rc=$?
+ls /sys/module/ | grep -i reboot
+echo ---try---
+reboot bootloader

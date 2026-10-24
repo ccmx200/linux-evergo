@@ -1,0 +1,10 @@
+P=/sys/module/mt6833_conn/parameters
+echo EXP_A_START
+echo "--- A: both WFSYS writes OFF ---"
+echo 0 > $P/wf_pwr_ctl_write
+echo 0 > $P/wf_cpu_rst_write
+echo 1 > $P/replay_probe
+echo 1 > /proc/conn_cycle
+sleep 8
+dmesg | grep -iE "WFSYS: pwr_ctl=|WFSYS: cpu_rst|DRIVER OWN Done|Fail reason|FW download|Start CMD failed|idle check" | tail -8
+echo EXP_A_END

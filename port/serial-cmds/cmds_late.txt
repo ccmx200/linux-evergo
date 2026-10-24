@@ -1,0 +1,9 @@
+P=/sys/module/mt6833_conn/parameters
+echo NOW=$(cat /proc/uptime)
+echo "waiting 60s..."
+usleep 60000000
+echo NOW=$(cat /proc/uptime)
+echo 1 > $P/replay_probe
+echo 1 > /proc/conn_cycle
+sleep 8
+dmesg | grep -iE "DRIVER OWN Done|Fail reason|ram_entry|EMI copy" | tail -6

@@ -1,0 +1,5 @@
+dmesg | grep -E "stp: (clk_26|clk_dis|clk_en|clk_138|reset|chipid|adie|set_stp|ant_swap|rf_cal)" | tail -14
+echo "=== ECO ==="
+dmesg | grep -iE "Chip ID\[|TOP_HVR" | tail -3
+echo "=== FAIL ==="
+dmesg | grep -iE "Fail reason|probe success" | tail -3

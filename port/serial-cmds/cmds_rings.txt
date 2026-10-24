@@ -1,0 +1,21 @@
+echo === ROM PATCH ENTRY REGISTERS ===
+echo "r 0x18002504" > /proc/conn_reg
+echo "r 0x18002508" > /proc/conn_reg
+echo "r 0x18002500" > /proc/conn_reg
+echo "r 0x1800250C" > /proc/conn_reg
+sleep 2
+dmesg | grep -i "reg r 0x18002" | tail -5
+echo === FWDL RING 3 (0x4330/38/3c) ===
+echo "r 0x18004330" > /proc/conn_reg
+echo "r 0x18004334" > /proc/conn_reg
+echo "r 0x18004338" > /proc/conn_reg
+echo "r 0x1800433C" > /proc/conn_reg
+sleep 2
+dmesg | grep -i "reg r 0x180043" | tail -5
+echo === RX RING 1 (0x4410/18/1c) ===
+echo "r 0x18004410" > /proc/conn_reg
+echo "r 0x18004414" > /proc/conn_reg
+echo "r 0x18004418" > /proc/conn_reg
+echo "r 0x1800441C" > /proc/conn_reg
+sleep 2
+dmesg | grep -i "reg r 0x180044" | tail -5

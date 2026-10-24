@@ -1,0 +1,10 @@
+echo ===A1_RW===
+mount -o remount,rw /newroot && echo RW_OK || echo RW_FAIL
+echo ===A2_WRITETEST===
+touch /newroot/.rwtest && echo WRITE_OK && rm -f /newroot/.rwtest || echo WRITE_FAIL
+echo ===A3_MOVE===
+mount --move /proc /newroot/proc && echo PROC_OK || echo PROC_FAIL
+mount --move /sys /newroot/sys && echo SYS_OK || echo SYS_FAIL
+mount --move /dev /newroot/dev && echo DEV_OK || echo DEV_FAIL
+echo ===A4_SWITCH===
+exec switch_root /newroot /sbin/init

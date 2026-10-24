@@ -1,0 +1,17 @@
+echo ===L1_SETUP===
+losetup -o 12952010752 /dev/loop0 /dev/sdc && echo LOSETUP_OK || echo LOSETUP_FAIL
+echo ===L2_SIZE===
+blockdev --getsize64 /dev/loop0
+echo ===L3_LIST===
+losetup -a
+echo ===L4_WRITE===
+gzip -dc /rootfs.img.gz > /dev/loop0 && echo WRITE_OK || echo WRITE_FAIL
+echo ===L5_SYNC===
+sync
+echo ===L6_MOUNT===
+mount -t ext4 -o ro /dev/loop0 /newroot && echo MOUNT_OK || echo MOUNT_FAIL
+echo ===L7_LS===
+ls /newroot
+echo ===L8_RELEASE===
+cat /newroot/etc/alpine-release
+echo ===DONE===

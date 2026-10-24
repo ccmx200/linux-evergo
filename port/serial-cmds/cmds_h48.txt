@@ -1,0 +1,12 @@
+P=/sys/module/mt6833_conn/parameters
+echo H48_START
+echo 1 > $P/patch_mode
+echo 48 > $P/patch_hdr
+echo 0 > $P/no_clear
+echo "--- steps=3 patch_mode=1 patch_hdr=48 ---"
+echo 3 > $P/steps; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=15 patch_mode=0 (all blobs) patch_hdr=48 ---"
+echo 0 > $P/patch_mode; echo 15 > $P/steps; echo 1 > /proc/conn_cycle; sleep 1
+echo H48_END
+dmesg | grep -E "conn_cycle: (minimal|done)" | tail -4
+dmesg | grep -iE "idle check|CPU state|ROM patch:" | tail -6

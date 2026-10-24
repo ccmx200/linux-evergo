@@ -1,0 +1,7 @@
+dmesg | grep -iE "ROM patch|adie:" | head -8
+echo === idle ===
+dmesg | grep -iE "idle check|monflg|0x18002600" | head -5
+echo === own ===
+dmesg | grep -iE "Driver own timeout|own back|Fail reason|net_dev" | head -5
+echo === net ===
+ls /sys/class/net/

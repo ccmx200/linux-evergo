@@ -1,0 +1,6 @@
+echo === FW FILE ===
+dmesg | grep -iE "RAM_CODE|request_firmware|firmware load|soc2_2" | tail -8
+echo === ADIE ===
+dmesg | grep -iE "adie|A-die" | tail -4
+echo === DOWNLOAD DETAIL ===
+dmesg | grep -iE "download|HIF_BUSY|CIRQ|WFSYS_ON|patch|PATCH" | tail -12

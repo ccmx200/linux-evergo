@@ -1,0 +1,8 @@
+echo "r 0x1100C010" > /proc/conn_reg
+echo "r 0x1100C000" > /proc/conn_reg
+echo "r 0x1100C04C" > /proc/conn_reg
+echo "r 0x1100C010" > /proc/conn_reg
+echo "r 0x180C1140" > /proc/conn_reg
+echo "r 0x18002600" > /proc/conn_reg
+sleep 3
+dmesg | grep -E "reg r 0x1100|reg r 0x180C1140|reg r 0x18002600" | tail -8

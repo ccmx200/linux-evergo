@@ -1,0 +1,4 @@
+dmesg | grep -iE "vendor:" | head -8
+dmesg | grep -iE "idle check|monflg|WFSYS: cpu_rst" | head -6
+dmesg | grep -iE "Driver own timeout|DRIVER OWN Done|probe failed|wlan0" | head -5
+ls /sys/class/net/

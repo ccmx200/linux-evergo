@@ -1,0 +1,14 @@
+echo ===V1_RELEASE===
+cat /etc/alpine-release
+echo ===V2_ROOT===
+cat /proc/mounts
+echo ===V3_LS===
+ls /
+echo ===V4_APK===
+apk --version
+echo ===V5_PID1===
+cat /proc/1/cmdline
+echo
+echo ===V6_UPTIME===
+cat /proc/uptime
+echo ===DONE===

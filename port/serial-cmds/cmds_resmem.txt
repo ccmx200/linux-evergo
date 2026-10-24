@@ -1,0 +1,11 @@
+D=/proc/device-tree/reserved-memory/consys-reserve-memory
+echo === consys-reserve-memory reg ===
+od -A d -t x1 $D/reg
+echo === size ===
+od -A d -t x1 $D/size 2>/dev/null
+echo === compatible ===
+tr '\0' ' ' < $D/compatible 2>/dev/null; echo
+echo === 13ffff000 node ===
+E=/proc/device-tree/reserved-memory/memory@13ffff000
+ls $E
+od -A d -t x1 $E/reg 2>/dev/null

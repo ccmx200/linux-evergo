@@ -1,0 +1,4 @@
+echo === TX RING CONFIG (from the failure dump) ===
+dmesg | grep -A12 "Tx Ring configuration" | tail -14
+echo === RX RING CONFIG ===
+dmesg | grep -A8 "Rx Ring configuration" | tail -10

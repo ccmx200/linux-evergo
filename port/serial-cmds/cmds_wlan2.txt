@@ -1,0 +1,4 @@
+dmesg | grep "\[wlan\]" | tail -45
+ls /proc/driver 2>/dev/null
+ls /proc/net | grep -i wlan
+cat /proc/net/wireless

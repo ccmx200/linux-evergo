@@ -1,0 +1,16 @@
+P=/sys/module/mt6833_conn/parameters
+echo "=== before ==="
+cat $P/wf_pwr_ctl_write $P/wf_cpu_rst_write
+echo 0 > $P/wf_pwr_ctl_write
+echo 0 > $P/wf_cpu_rst_write
+echo 1 > $P/replay_probe
+echo 1 > $P/stp_before_probe
+echo "=== after ==="
+cat $P/wf_pwr_ctl_write $P/wf_cpu_rst_write
+echo "=== power cycle + probe ==="
+echo 1 > /proc/conn_cycle
+sleep 16
+echo "=== WFSYS lines ==="
+dmesg | grep -i "WFSYS:" | tail -6
+echo "=== result ==="
+dmesg | grep -iE "Chip ID\[|FW_START|Fail reason|probe success" | tail -4

@@ -1,0 +1,5 @@
+dmesg | grep -iE "Fail reason|wlanProbe|wlan0|net_device|registered|INIT INFO.*ready|Start CMD" | tail -8
+echo === NET ===
+ls /sys/class/net
+echo === NATIVE IFACE ===
+ip link show 2>/dev/null | grep -E "^[0-9]+:" | head -8

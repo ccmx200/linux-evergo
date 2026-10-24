@@ -1,0 +1,19 @@
+echo ===F1_WRITE_NEW_WDT===
+echo '#!/bin/sh' > /bin/wdtfeed.new
+echo '# Keep the hardware watchdog fed without spamming the log.' >> /bin/wdtfeed.new
+echo '# echo 1 > /dev/watchdog opens and closes the device every tick; closing' >> /bin/wdtfeed.new
+echo '# without the magic V byte makes the watchdog core log "did not stop!" at' >> /bin/wdtfeed.new
+echo '# CRIT level and re-arm. Holding the descriptor open keeps it quiet.' >> /bin/wdtfeed.new
+echo 'exec 3>/dev/watchdog || exit 1' >> /bin/wdtfeed.new
+echo 'while true; do' >> /bin/wdtfeed.new
+echo '    echo . >&3' >> /bin/wdtfeed.new
+echo '    sleep 8' >> /bin/wdtfeed.new
+echo 'done' >> /bin/wdtfeed.new
+chmod 755 /bin/wdtfeed.new
+echo ===F2_CAT===
+cat /bin/wdtfeed.new
+echo ===F3_TEST_HOLD_FD===
+/bin/wdtfeed.new &
+sleep 2
+echo TEST_STARTED
+echo ===END===

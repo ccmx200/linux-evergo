@@ -1,0 +1,10 @@
+echo === SDIO devices ===
+ls /sys/bus/sdio/devices/ 2>&1
+echo === MMC hosts ===
+ls /sys/class/mmc_host/ 2>&1
+echo === dmesg sdio/mmc ===
+dmesg | grep -iE "sdio|mmc[0-9]|sdhci" | head -10
+echo === wifi/mt76 in kernel ===
+ls /sys/bus/platform/drivers/ | grep -iE "mtk|wifi|mt76|gen4m" | head -10
+echo === our wlan hif ===
+dmesg | grep -iE "hifAxi|axi_hif|gen4m|wlanProbe" | head -5

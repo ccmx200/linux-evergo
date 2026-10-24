@@ -1,0 +1,13 @@
+D=/proc/device-tree/soc/wifi@18000000
+echo === NODE CONTENTS ===
+ls $D
+echo === COMPATIBLE ===
+tr '\0' ' ' < $D/compatible; echo
+echo === INTERRUPTS (hex) ===
+if [ -f $D/interrupts ]; then od -A d -t x1 $D/interrupts; else echo "NO interrupts property"; fi
+echo === INTERRUPT-PARENT ===
+if [ -f $D/interrupt-parent ]; then od -A d -t x1 $D/interrupt-parent; else echo "none"; fi
+echo === CONSYS NODE ===
+C=/proc/device-tree/soc/consys@18002000
+ls $C
+if [ -f $C/interrupts ]; then od -A d -t x1 $C/interrupts; else echo "consys: NO interrupts"; fi

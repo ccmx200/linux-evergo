@@ -1,0 +1,7 @@
+echo === TOP_HVR / TOP_FVR at AP view ===
+echo "r 0x180C2000" > /proc/conn_reg
+echo "r 0x180C2004" > /proc/conn_reg
+echo "r 0x180C1140" > /proc/conn_reg
+echo "r 0x180C1000" > /proc/conn_reg
+sleep 2
+dmesg | grep -E "reg r 0x180C" | tail -5

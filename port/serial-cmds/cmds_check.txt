@@ -1,0 +1,11 @@
+echo ===C1_LS===
+ls /newroot
+echo ===C2_RELEASE===
+cat /newroot/etc/alpine-release
+echo ===C3_INITTAB===
+cat /newroot/etc/inittab
+echo ===C4_FSTAB===
+cat /newroot/etc/fstab
+echo ===C5_INIT===
+ls -l /newroot/sbin/init /newroot/bin/busybox
+echo ===DONE===

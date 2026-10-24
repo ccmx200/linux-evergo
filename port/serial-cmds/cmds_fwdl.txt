@@ -1,0 +1,4 @@
+echo === DOWNLOAD / READY ===
+dmesg | grep -iE "DownloadFW|download fw|fw download|CheckWifiFunc|ready bit|NicCapability|NIC capability|HAL_ENABLE_FWDL|sw_sync|wlanAdapterStart" | tail -20
+echo === FIRST WARNS ===
+dmesg | grep -iE "INIT WARN|INIT ERROR" | head -12

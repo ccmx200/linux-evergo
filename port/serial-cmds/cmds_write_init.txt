@@ -1,0 +1,30 @@
+echo ===F1_LOOP===
+losetup -o 12952010752 /dev/loop0 /dev/sdc && echo LOOP_OK || echo LOOP_FAIL
+echo ===F2_MOUNT===
+mount -t ext4 /dev/loop0 /newroot && echo MOUNT_OK || echo MOUNT_FAIL
+echo ===F3_WRITE_INIT===
+echo '#!/bin/sh' > /newroot/bin/evergo-init
+echo 'export PATH=/sbin:/bin:/usr/sbin:/usr/bin' >> /newroot/bin/evergo-init
+echo 'mount -t proc none /proc' >> /newroot/bin/evergo-init
+echo 'mount -t sysfs none /sys' >> /newroot/bin/evergo-init
+echo 'mount -t devtmpfs none /dev' >> /newroot/bin/evergo-init
+echo 'mkdir -p /dev/pts /tmp /run' >> /newroot/bin/evergo-init
+echo 'mount -t devpts none /dev/pts' >> /newroot/bin/evergo-init
+echo 'mount -t tmpfs none /tmp' >> /newroot/bin/evergo-init
+echo 'mount -t tmpfs none /run' >> /newroot/bin/evergo-init
+echo '/bin/wdtfeed &' >> /newroot/bin/evergo-init
+echo 'exec >/dev/ttyGS0 2>&1 </dev/ttyGS0' >> /newroot/bin/evergo-init
+echo 'echo ""' >> /newroot/bin/evergo-init
+echo 'echo "=========================================================="' >> /newroot/bin/evergo-init
+echo 'echo "   Alpine $(cat /etc/alpine-release) running on evergo"' >> /newroot/bin/evergo-init
+echo 'echo "=========================================================="' >> /newroot/bin/evergo-init
+echo 'uname -a' >> /newroot/bin/evergo-init
+echo 'head -3 /proc/meminfo' >> /newroot/bin/evergo-init
+echo 'echo ""' >> /newroot/bin/evergo-init
+echo 'exec /bin/sh' >> /newroot/bin/evergo-init
+busybox chmod 755 /newroot/bin/evergo-init && echo CHMOD_OK || echo CHMOD_FAIL
+echo ===F4_CAT===
+cat /newroot/bin/evergo-init
+echo ===F5_SYNC===
+sync
+echo ===DONE===

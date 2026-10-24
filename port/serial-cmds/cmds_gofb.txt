@@ -1,0 +1,3 @@
+echo === GO FASTBOOT ===
+ls -l /sbin/gofastboot
+gofastboot

@@ -1,0 +1,15 @@
+echo ===WDT_SPAM===
+dmesg | grep -c 'watchdog did not stop'
+echo ===WDT_TAIL===
+dmesg | grep 'watchdog did not stop' | tail -3
+echo ===CONSOLE_WARN===
+dmesg | grep -c 'unable to open an initial console'
+echo ===WDT_DEV===
+ls -l /dev/watchdog
+echo ===DEV_CONSOLE===
+ls -l /dev/console
+echo ===WDTFEED_RUNNING===
+ps | grep -c wdtfeed
+echo ===KERNEL===
+uname -r
+echo ===END===

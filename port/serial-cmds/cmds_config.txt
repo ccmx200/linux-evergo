@@ -1,0 +1,8 @@
+echo "--- kallsyms check ---"
+grep -c mt6833_conn_power_on /proc/kallsyms
+grep -c mtk_wcn_wmt_wlan_reg /proc/kallsyms
+--- config.gz ---
+ls -la /proc/config.gz
+zcat /proc/config.gz | wc -c
+--- ikconfig in the running kernel? ---
+grep -c IKCONFIG /proc/kallsyms

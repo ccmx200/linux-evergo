@@ -1,0 +1,3 @@
+dmesg | grep -c 'watchdog did not stop'
+cat /proc/uptime
+dmesg | wc -l

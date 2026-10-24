@@ -1,0 +1,11 @@
+cat /proc/version
+echo "=== buildtime stamps written? ==="
+dmesg | grep -iE "buildtime" | tail -4
+echo "=== result ==="
+dmesg | grep -iE "Chip ID\[|FW_START|Fail reason|probe success" | tail -4
+echo "=== 0x14 test ==="
+P=/sys/module/mt6833_conn/parameters
+echo 1 > /proc/conn_stp
+sleep 6
+dmesg | grep -E "stp: (ant_swap|rf_cal)" | tail -4
+ls /sys/class/net

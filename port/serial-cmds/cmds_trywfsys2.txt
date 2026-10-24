@@ -1,0 +1,3 @@
+dmesg | grep -iE "WFSYS:|replaying|DRIVER OWN Done|Fail reason|ready_bits|FW download Start|release manifest" | tail -14
+echo === NET ===
+ls /sys/class/net

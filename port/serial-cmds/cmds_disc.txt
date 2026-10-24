@@ -1,0 +1,6 @@
+cat /proc/version
+echo "=== chipid / adie replies (ROM vs firmware discriminator) ==="
+dmesg | grep "stp:" | head -14
+echo "=== result ==="
+dmesg | grep -iE "Chip ID\[|FW_START|Fail reason|probe success|idle loop" | tail -5
+ls /sys/class/net

@@ -1,0 +1,6 @@
+echo === SRCLKEN mainline ===
+dmesg | grep -E "srclken \+0x000:" | head -2
+echo === TOPCKGEN mainline key rows ===
+dmesg | grep -E "topckgen \+0x(010|020|030|040|050):" | head -5
+echo === INFRAAO mainline ===
+dmesg | grep -E "infraao \+0x(060|080|0a0|0c0|0e0):" | head -6

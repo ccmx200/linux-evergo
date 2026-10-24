@@ -1,0 +1,6 @@
+echo === MINIMAL ===
+dmesg | grep -iE "minimal:" | head -4
+echo === IDLE ===
+dmesg | grep -iE "idle check|CPU state" | head -3
+echo === CMDLINE ===
+cat /proc/cmdline

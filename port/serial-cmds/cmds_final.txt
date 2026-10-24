@@ -1,0 +1,11 @@
+cat /proc/version
+echo "=== reserved ==="
+ls /proc/device-tree/reserved-memory/ | grep -iE "consys|wifi"
+od -A n -t x4 /proc/device-tree/reserved-memory/consys-reserve-memory/reg 2>/dev/null
+echo "=== conn power ==="
+echo "r 0x18002600" > /proc/conn_reg
+sleep 1
+dmesg | grep -iE "reg r 0x18002600" | tail -1
+echo "=== wifi ==="
+dmesg | grep -iE "axiGetRsvMemSize|of_reserved_mem_device_init|probe with driver wlan|Chip ID\[|FW_START|Fail reason|probe success" | tail -8
+ls /sys/class/net

@@ -1,0 +1,8 @@
+echo ===S1_REMOUNT===
+mount -o remount,rw /newroot && echo RW_OK || echo RW_FAIL
+echo ===S2_MOVE_MOUNTS===
+mount --move /proc /newroot/proc && echo PROC_MOVED || echo PROC_FAIL
+mount --move /sys /newroot/sys && echo SYS_MOVED || echo SYS_FAIL
+mount --move /dev /newroot/dev && echo DEV_MOVED || echo DEV_FAIL
+echo ===S3_SWITCHING===
+exec switch_root /newroot /sbin/init

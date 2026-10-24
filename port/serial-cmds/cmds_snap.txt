@@ -1,0 +1,2 @@
+dmesg | grep -iE "SNAP pre-poweron" | head -3
+dmesg | grep -iE "WFSYS:|idle check" | head -8

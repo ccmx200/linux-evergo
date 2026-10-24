@@ -1,0 +1,8 @@
+echo === WFDMA INT STATUS ===
+echo "r 0x18004204" > /proc/conn_reg
+echo "r 0x18004208" > /proc/conn_reg
+echo "r 0x1800420C" > /proc/conn_reg
+echo "r 0x18004200" > /proc/conn_reg
+echo "r 0x18002150" > /proc/conn_reg
+sleep 3
+dmesg | grep -E "reg r 0x18004|reg r 0x18002150" | tail -6

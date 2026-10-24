@@ -1,0 +1,3 @@
+dmesg | grep -iE "EMI remap|idle check|CPU state|ROM patch|RGU reset" | head -10
+dmesg | grep -iE "Driver own timeout|DRIVER OWN|probe failed|pfWlanProbe" | head -8
+ls /sys/class/net/

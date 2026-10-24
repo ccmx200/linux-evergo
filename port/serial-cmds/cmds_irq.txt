@@ -1,0 +1,6 @@
+echo === IRQ SETUP ===
+dmesg | grep -iE "glBusSetIrq|request_irq|irq num|u4IrqId" | head -8
+echo === IRQ RESOURCES ===
+cat /proc/interrupts | head -30
+echo === WIFI PLATFORM DEV ===
+ls /sys/devices/platform/ | grep -i -E "wifi|consys|18000000" 

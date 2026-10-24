@@ -1,0 +1,3 @@
+ls -l /sbin/gofastboot 2>/dev/null
+sync
+/sbin/gofastboot 2>&1 | tail -2

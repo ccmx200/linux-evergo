@@ -1,0 +1,7 @@
+P=/sys/module/mt6833_conn/parameters
+echo 1 > $P/stp_before_probe
+echo 1 > $P/replay_probe
+sleep 1
+echo 1 > /proc/conn_cycle
+sleep 14
+dmesg | grep -E "stp: " | tail -12

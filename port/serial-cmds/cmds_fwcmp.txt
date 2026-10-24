@@ -1,0 +1,9 @@
+echo "=== vendor firmware files ==="
+ls -l /vendor/firmware/ 2>/dev/null | grep -iE "WIFI_RAM|soc2_2|ROM_PATCH" | head -10
+echo "=== md5 of the ones we use ==="
+md5sum /vendor/firmware/WIFI_RAM_CODE_soc2_2_1_1.bin 2>/dev/null
+md5sum /vendor/firmware/soc2_2_ram_mcu_1_1_hdr.bin 2>/dev/null
+md5sum /vendor/firmware/soc2_2_ram_bt_1_1_hdr.bin 2>/dev/null
+md5sum /vendor/firmware/soc2_2_ram_wifi_1_1_hdr.bin 2>/dev/null
+echo "=== sizes ==="
+ls -l /vendor/firmware/WIFI_RAM_CODE_soc2_2_1_1.bin /vendor/firmware/soc2_2_ram_mcu_1_1_hdr.bin 2>/dev/null

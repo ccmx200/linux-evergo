@@ -1,0 +1,15 @@
+echo === CONCURRENT SAMPLE DURING FW DOWNLOAD ===
+( i=0; while [ $i -lt 50 ]; do
+    echo "r 0x180c1140" > /proc/conn_reg
+    echo "r 0x18070000" > /proc/conn_reg
+    echo "r 0x18004208" > /proc/conn_reg
+    usleep 100000 2>/dev/null || sleep 1
+    i=$((i+1))
+  done ) &
+SAMPLER=$!
+sleep 1
+echo 1 > /proc/conn_cycle
+sleep 7
+kill $SAMPLER 2>/dev/null
+echo === SAMPLES (0x180c1140 / 0x18070000 / 0x18004208) ===
+dmesg | grep -E "reg r 0x180c1140|reg r 0x18070000|reg r 0x18004208" | tail -24

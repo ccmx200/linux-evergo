@@ -1,0 +1,5 @@
+echo ===P1_PS===
+ps | grep wdt
+echo ===P2_COUNT_BEFORE===
+dmesg | grep -c 'watchdog did not stop'
+echo ===END===

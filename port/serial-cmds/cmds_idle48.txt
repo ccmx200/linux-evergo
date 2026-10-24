@@ -1,0 +1,8 @@
+echo === IDLE ===
+dmesg | grep -iE "idle check|CPU state" | head -4
+echo === ROM ===
+dmesg | grep -iE "ROM patch:" | head -4
+echo === WLAN ===
+dmesg | grep -iE "Driver own|DRIVER OWN|own back|Fail reason|ready|wlan0" | head -8
+echo === NET ===
+ls /sys/class/net/

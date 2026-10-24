@@ -1,0 +1,7 @@
+echo === WIFI NODE memory-region ===
+od -A d -t x1 /proc/device-tree/soc/wifi@18000000/memory-region
+echo === CONSYS NODE memory-region ===
+ls /proc/device-tree/soc/consys@18002000/
+od -A d -t x1 /proc/device-tree/soc/consys@18002000/memory-region 2>/dev/null
+echo === RESERVED MEMORY NODES ===
+ls /proc/device-tree/reserved-memory/ 2>/dev/null | head -20

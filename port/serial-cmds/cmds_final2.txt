@@ -1,0 +1,4 @@
+dmesg | grep -iE "axiGetRsvMemSize|of_reserved_mem_device_init|probe with driver wlan|Chip ID\[|FW_START|Fail reason|probe success" | tail -8
+echo "=== idle ==="
+dmesg | grep -iE "reg r 0x18002600|idle" | tail -2
+ls /sys/class/net

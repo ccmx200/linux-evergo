@@ -1,0 +1,3 @@
+dmesg | grep -iE "ROM patch|idle check|CPU state|WFSYS" | head -12
+dmesg | grep -iE "wlanProbe|DRIVER OWN|SetDriverOwn|pfWlanProbe|wlan0|ready" | head -12
+ls /sys/class/net/

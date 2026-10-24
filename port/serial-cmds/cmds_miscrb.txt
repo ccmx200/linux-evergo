@@ -1,0 +1,5 @@
+echo === MISC READBACK ===
+dd if=/dev/sdc bs=1 skip=32768 count=32 2>/dev/null | od -A d -t c
+echo === BLOCK DEVICES ===
+ls -l /dev/sd* 2>/dev/null | head -6
+cat /sys/block/sdc/size 2>/dev/null

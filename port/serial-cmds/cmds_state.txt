@@ -1,0 +1,5 @@
+echo ===STATE===
+uname -a
+cat /etc/alpine-release
+ls /
+echo ===END===

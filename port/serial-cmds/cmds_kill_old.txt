@@ -1,0 +1,12 @@
+echo ===K1_KILL_OLD===
+kill 152
+sleep 1
+echo ===K2_INSTALL===
+mv /bin/wdtfeed.new /bin/wdtfeed
+chmod 755 /bin/wdtfeed
+cat /bin/wdtfeed
+echo ===K3_PS===
+ps | grep wdt
+echo ===K4_SYNC===
+sync
+echo ===END===

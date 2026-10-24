@@ -1,0 +1,9 @@
+Placeholder for port/ shim headers.
+
+With the feature flags used by ../Makefile no out-of-tree header is reached,
+so this directory is intentionally empty.  It only becomes necessary if
+CONFIG_MTK_WLAN_GEN4M_EMI=y is ever enabled, in which case the EMI MPU calls in
+wlan/core/gen4m/os/linux/plat/mt6833/plat_priv.c need
+  <soc/mediatek/emi.h>            (mtk_emimpu_* API)
+  <linux/soc/mediatek/mtk-pm-qos.h>
+to be provided here, or that code to be dropped.

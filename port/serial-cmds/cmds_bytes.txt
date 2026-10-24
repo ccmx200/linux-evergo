@@ -1,0 +1,9 @@
+P=/sys/module/mt6833_conn/parameters
+echo 1 > $P/stp_before_probe
+sleep 1
+echo 1 > /proc/conn_cycle
+sleep 12
+echo "=== STP responses with full bytes ==="
+dmesg | grep -E "stp: (clk_en|clk_138|reset|set_stp|clk_26|clk_dis|ant_swap)" | tail -20
+echo "=== hexdumps ==="
+dmesg | grep "stp: .*\[" | tail -10

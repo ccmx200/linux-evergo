@@ -1,0 +1,7 @@
+cat /proc/version
+echo "=== rxdiag (what the MCU actually sent) ==="
+dmesg | grep "rxdiag:" | tail -12
+echo "=== wifi result ==="
+dmesg | grep -iE "Chip ID\[|FW_START|Fail reason" | tail -4
+echo "=== net ==="
+ls /sys/class/net

@@ -1,0 +1,4 @@
+echo "=== firmware files in initramfs ==="
+ls -l /lib/firmware/*.bin 2>/dev/null | head -10
+echo "=== what the driver loaded ==="
+dmesg | grep -iE "request_firmware|fw file|wlan.*bin|load.*fw" | tail -6

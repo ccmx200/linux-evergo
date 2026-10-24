@@ -1,0 +1,18 @@
+echo "=== EMI window and firmware placement ==="
+dmesg | grep -iE "EMI base from CONN|EMI copy" | tail -4
+echo "=== read back EMI+0x2f0000 (first 4 words) ==="
+echo "r 0xbf2f0000" > /proc/conn_reg
+sleep 1
+echo "r 0xbf2f0004" > /proc/conn_reg
+sleep 1
+echo "r 0xbf2f0008" > /proc/conn_reg
+sleep 1
+echo "r 0xbf2f000c" > /proc/conn_reg
+sleep 1
+dmesg | grep "reg r 0xbf2f00" | tail -4
+echo "=== also check EMI+0x386000 ==="
+echo "r 0xbf386000" > /proc/conn_reg
+sleep 1
+echo "r 0xbf386004" > /proc/conn_reg
+sleep 1
+dmesg | grep "reg r 0xbf3860" | tail -2

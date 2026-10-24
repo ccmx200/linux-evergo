@@ -1,0 +1,5 @@
+dmesg | grep -iE "RAM_CODE|WIFI_RAM|soc2_2" | head -8
+echo === drvown ===
+dmesg | grep -iE "Driver own timeout|LP_OWN|own\.|OWN" | head -8
+echo === reason ===
+dmesg | grep -iE "Fail reason|wlanAdapterStart" | head -6

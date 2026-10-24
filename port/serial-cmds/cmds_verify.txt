@@ -1,0 +1,13 @@
+echo "=== 1. kernel stamp ==="
+cat /proc/version
+echo "=== 2. reserved mem nodes ==="
+ls /proc/device-tree/reserved-memory/ | grep -iE "consys|wifi"
+echo "--- consys reg ---"
+od -A n -t x4 /proc/device-tree/reserved-memory/consys-reserve-memory/reg 2>/dev/null
+echo "--- wifi node memory-region (0x2b = consys) ---"
+od -A n -t x4 /proc/device-tree/soc/wifi@18000000/memory-region 2>/dev/null
+echo "=== 3. probe ==="
+dmesg | grep -iE "axiGetRsvMemSize|_init_resv_mem|probe with driver wlan|gWifiRsvMemSize" | tail -6
+echo "=== 4. wifi result ==="
+dmesg | grep -iE "Chip ID\[|FW_START|Fail reason|probe success" | tail -6
+ls /sys/class/net

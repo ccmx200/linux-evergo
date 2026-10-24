@@ -1,0 +1,7 @@
+echo === WIFI READY BITS (0x180C1140, need bits[2:1]) ===
+echo "r 0x180C1140" > /proc/conn_reg
+echo "r 0x180C1144" > /proc/conn_reg
+echo "r 0x18004208" > /proc/conn_reg
+echo "r 0x180C1130" > /proc/conn_reg
+sleep 2
+dmesg | grep "reg r 0x180" | tail -6

@@ -1,0 +1,9 @@
+echo "r 0xbf073000" > /proc/conn_reg
+sleep 1
+echo "r 0xbf000000" > /proc/conn_reg
+sleep 1
+echo "r 0xbf02f000" > /proc/conn_reg
+sleep 1
+echo "r 0xbf014400" > /proc/conn_reg
+sleep 1
+dmesg | grep "reg r 0xbf" | tail -6

@@ -1,0 +1,10 @@
+echo ===A1_RELEASE===
+cat /etc/alpine-release
+echo ===A2_PID1===
+cat /proc/1/cmdline
+echo
+echo ===A3_SBIN===
+ls /sbin
+echo ===A4_INITD===
+ls /etc/init.d
+echo ===DONE===

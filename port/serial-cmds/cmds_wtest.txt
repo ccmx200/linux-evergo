@@ -1,0 +1,9 @@
+echo "=== write test: 1 MiB pattern at offset 1024 MiB ==="
+dd if=/dev/urandom of=/tmp/pat bs=1M count=1 2>/dev/null
+dd if=/tmp/pat of=/dev/sdc bs=1M seek=1024 conv=notrunc 2>&1 | tail -1
+sync
+echo "=== read back first 32 bytes ==="
+dd if=/dev/sdc bs=1M skip=1024 count=1 2>/dev/null | hexdump -C | head -2
+echo "=== compare ==="
+dd if=/dev/sdc bs=1M skip=1024 count=1 2>/dev/null | md5sum
+md5sum /tmp/pat

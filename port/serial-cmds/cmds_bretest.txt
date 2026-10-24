@@ -1,0 +1,9 @@
+P=/sys/module/mt6833_conn/parameters
+echo "=== B retest: emi_use_wifi=1 (vendor-matching be000000) ==="
+echo 1 > $P/emi_use_wifi
+echo 1 > $P/replay_probe
+echo 1 > /proc/conn_cycle
+sleep 10
+dmesg | grep -E "EMI base from CONN|EMI copy|DRIVER OWN Done|Fail reason|Chip No Ack|ram_entry" | tail -10
+echo === NET ===
+ls /sys/class/net

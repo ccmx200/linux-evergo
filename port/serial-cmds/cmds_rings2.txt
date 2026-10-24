@@ -1,0 +1,1 @@
+dmesg | grep -iE "reg r 0x180043|reg r 0x180044" | tail -10

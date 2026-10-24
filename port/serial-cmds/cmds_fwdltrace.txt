@@ -1,0 +1,4 @@
+echo === FWDL TRACE ===
+dmesg | grep -E "FWDL-DBG" | head -30
+echo === RESULT ===
+dmesg | grep -iE "Fail reason|DRIVER OWN Done|FW download Start" | tail -4

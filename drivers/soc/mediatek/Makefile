@@ -9,3 +9,6 @@ obj-$(CONFIG_MTK_MMSYS) += mtk-mmsys.o
 obj-$(CONFIG_MTK_MMSYS) += mtk-mutex.o
 obj-$(CONFIG_MTK_SVS) += mtk-svs.o
 obj-$(CONFIG_MTK_SOCINFO) += mtk-socinfo.o
+# retired in favour of mt6833-conn.o (same compatible)
+# obj-y += mt6833-conn-probe.o
+obj-$(CONFIG_MTK_MT6833_CONN) += mt6833-conn.o

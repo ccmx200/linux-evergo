@@ -1,0 +1,12 @@
+echo "=== rootfs contents ==="
+ls /newroot
+echo "=== init present? ==="
+ls -l /newroot/sbin/init /newroot/usr/lib/systemd/systemd 2>&1
+echo "=== os-release ==="
+cat /newroot/etc/os-release 2>/dev/null | head -3
+echo "=== binary count ==="
+ls /newroot/usr/bin 2>/dev/null | wc -l
+echo "=== remount rw test ==="
+mount -o remount,rw /newroot 2>&1
+echo "remount_rc=$?"
+touch /newroot/.rwtest 2>&1 && echo "WRITE OK" && rm -f /newroot/.rwtest

@@ -1,0 +1,20 @@
+echo ===D1_CONSYS===
+ls /proc/device-tree/soc/consys@18002000/
+echo ===D2_COMPAT===
+cat /proc/device-tree/soc/consys@18002000/compatible
+echo
+echo ===D3_WIFI===
+ls /proc/device-tree/soc/wifi@18000000/
+echo ===D4_BTIF===
+ls /proc/device-tree/soc/btif@1100c000/
+echo ===D5_BT===
+ls /proc/device-tree/bt/
+echo ===D6_RSV===
+ls /proc/device-tree/reserved-memory/ | grep -E 'consys|wifi'
+echo ===D7_PLATFORM===
+ls /sys/bus/platform/devices/ | grep -E '18002000|18000000|1100c000'
+echo ===D8_PD===
+cat /sys/kernel/debug/pm_genpd/pm_genpd_summary 2>/dev/null | head -12
+echo ===D9_DMESG_CONN===
+dmesg | grep -iE 'consys|wifi|btif|conn' | head -8
+echo ===END===

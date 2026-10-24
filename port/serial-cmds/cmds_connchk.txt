@@ -1,0 +1,7 @@
+dmesg | grep -iE "mt6833-conn" | head -14
+echo "=== ready ==="
+echo "r 0x180c1140" > /proc/conn_reg
+sleep 1
+echo "r 0x18002600" > /proc/conn_reg
+sleep 1
+dmesg | grep "reg r 0x180" | tail -2

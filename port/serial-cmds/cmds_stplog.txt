@@ -1,0 +1,3 @@
+dmesg | grep "stp: " | tail -20
+echo "=== REG ==="
+dmesg | grep -E "reg r 0x180c1140|reg r 0x18002600" | tail -2

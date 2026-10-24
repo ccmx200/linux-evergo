@@ -1,0 +1,11 @@
+echo === TOOLS ===
+bash -c 'echo bash_ok'
+iw --version 2>&1 | head -1
+strace -V 2>&1 | head -1
+tcpdump --version 2>&1 | head -1
+jq --version
+lsblk --version 2>&1 | head -1
+echo === BOOT ===
+dmesg | grep -iE "idle check|infra gate" | head -2
+echo === NET ===
+ls /sys/class/net

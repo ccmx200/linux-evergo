@@ -1,0 +1,5 @@
+echo === FIND WIFI/CONSYS NODES ===
+find /proc/device-tree -name compatible -exec sh -c 'grep -l -E "mediatek,wifi|mediatek,consys|mediatek,mt6833-consys" "$1" 2>/dev/null' _ {} \; 2>/dev/null | head -10
+echo === SOC NODES ===
+ls /proc/device-tree/soc/ 2>/dev/null | grep -iE "wifi|consys|18000000" | head -5
+ls /proc/device-tree/ | grep -iE "^soc|consys" | head -5

@@ -1,0 +1,13 @@
+echo "=== uname ==="
+uname -a
+echo "=== cpu ==="
+nproc
+grep -E "^(processor|BogoMIPS|CPU part|model name)" /proc/cpuinfo | head -8
+echo "=== cpufreq ==="
+ls /sys/devices/system/cpu/cpu0/cpufreq/ 2>/dev/null || echo "no cpufreq"
+echo "=== memory ==="
+free -m
+echo "=== disk ==="
+df -h /
+echo "=== failed units ==="
+systemctl --failed --no-pager 2>&1 | head -12

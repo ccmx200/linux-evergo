@@ -1,0 +1,14 @@
+echo === CLEAR WFDMA INT (W1C) ===
+echo "w 0x18004200 0x10000082" > /proc/conn_reg
+echo "w 0x18004204 0x200800b3" > /proc/conn_reg
+echo "w 0x1800214C 0x10000000" > /proc/conn_reg
+sleep 1
+echo "r 0x18004200" > /proc/conn_reg
+echo "r 0x18004204" > /proc/conn_reg
+echo "r 0x18002150" > /proc/conn_reg
+sleep 3
+echo "r 0x18004200" > /proc/conn_reg
+echo "r 0x18004204" > /proc/conn_reg
+echo "r 0x18002150" > /proc/conn_reg
+sleep 3
+dmesg | grep -E "reg [rw] 0x180042|reg r 0x18002150" | tail -10

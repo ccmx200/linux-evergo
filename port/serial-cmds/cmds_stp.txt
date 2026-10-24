@@ -1,0 +1,4 @@
+echo === STP SEQUENCE ===
+echo 1 > /proc/conn_stp
+sleep 4
+dmesg | grep -E "stp:" | tail -18

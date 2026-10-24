@@ -1,0 +1,1 @@
+dmesg | sed -n '/Create wireless device/,/probe with driver wlan/p' | tail -25

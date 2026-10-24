@@ -1,0 +1,207 @@
+#!/bin/sh
+# evergo init - staged
+#
+#   1  mounts + console        (always runs)
+#   2  POST screen             (fast, no slow probing)
+#   3  USB gadget              (configfs ACM+RNDIS; keeps g_serial if it is
+#                               already holding the UDC, i.e. the safe image)
+#   4  network                 (usb0 192.168.42.1/24 + a shell on port 2222)
+#   5  rootfs                  (eMMC userdata at a fixed offset, via loop)
+#   6  switch_root             (into Arch)
+#
+# Every stage reports on the display and on the USB serial, and no stage may
+# prevent a later one from running: the shell always stays reachable.
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+BB=/bin/busybox
+
+USERDATA_OFF=$((0x304000000))     # 12352 MiB, from the stock scatter file
+NET_IP=192.168.42.1
+NET_MASK=24
+SHELL_PORT=2222
+
+# ---------------------------------------------------------------- stage 1 ---
+$BB mount -t proc     none /proc 2>/dev/null
+$BB mount -t sysfs    none /sys  2>/dev/null
+$BB mount -t devtmpfs none /dev  2>/dev/null
+$BB mkdir -p /tmp /run /newroot /sys/kernel/config 2>/dev/null
+$BB mount -t tmpfs    none /tmp  2>/dev/null
+$BB mount -t configfs none /sys/kernel/config 2>/dev/null
+
+# Output goes to the USB serial when it exists and to the display otherwise.
+# ttyGS0 may appear late, so the path is re-resolved on every call.
+console_dev() {
+    if [ -c /dev/ttyGS0 ]; then echo /dev/ttyGS0
+    elif [ -c /dev/tty1 ]; then echo /dev/tty1
+    elif [ -c /dev/tty0 ]; then echo /dev/tty0
+    else echo /dev/console
+    fi
+}
+
+say() {
+    d=$(console_dev)
+    echo "$*" >> "$d" 2>/dev/null
+    [ "$d" != /dev/tty1 ] && echo "$*" >> /dev/tty1 2>/dev/null
+    return 0
+}
+ok()  { say "[  ok  ] $*"; }
+bad() { say "[ fail ] $*"; }
+hdr() { say ""; say "-- $* -------------"; }
+
+wait_for() {
+    # wait_for <path> <tenths of a second>
+    p=$1; n=${2:-50}
+    i=0
+    while [ $i -lt $n ]; do
+        [ -e "$p" ] && return 0
+        $BB usleep 100000 2>/dev/null
+        i=$((i + 1))
+    done
+    [ -e "$p" ]
+}
+
+# ---------------------------------------------------------------- stage 2 ---
+memt=$($BB awk '/^MemTotal/{print int($2/1024)}' /proc/meminfo 2>/dev/null)
+ncpu=$($BB grep -c ^processor /proc/cpuinfo 2>/dev/null)
+model=$($BB cat /proc/device-tree/model 2>/dev/null | $BB tr -d '\0')
+kver=$($BB cut -d' ' -f3 /proc/version)
+
+say ""
+say "============================================================"
+say "   evergo   MT6833   mainline Linux   boot self-test"
+say "============================================================"
+say ""
+say "  kernel    $kver"
+say "  model     $model"
+say "  cpu       $ncpu cores"
+say "  memory    ${memt} MiB"
+say ""
+
+# ---------------------------------------------------------------- stage 3 ---
+gadget_bind() {
+    G=/sys/kernel/config/usb_gadget/g1
+    [ -d /sys/kernel/config/usb_gadget ] || return 1
+    mkdir -p "$G" 2>/dev/null || return 1
+    echo 0x1d6b > "$G/idVendor"  2>/dev/null
+    echo 0x0104 > "$G/idProduct" 2>/dev/null
+    echo 0x0100 > "$G/bcdDevice" 2>/dev/null
+    echo 0x0200 > "$G/bcdUSB"    2>/dev/null
+    mkdir -p "$G/strings/0x409" 2>/dev/null
+    echo evergo     > "$G/strings/0x409/manufacturer" 2>/dev/null
+    echo arch       > "$G/strings/0x409/product"      2>/dev/null
+    echo 0123456789 > "$G/strings/0x409/serialnumber" 2>/dev/null
+    mkdir -p "$G/configs/c.1/strings/0x409" 2>/dev/null
+    echo "acm+rndis" > "$G/configs/c.1/strings/0x409/configuration" 2>/dev/null
+
+    mkdir -p "$G/functions/acm.gs0"     2>/dev/null
+    mkdir -p "$G/functions/rndis.usb0"  2>/dev/null || return 1
+    echo 02:1a:11:00:00:01 > "$G/functions/rndis.usb0/dev_addr"  2>/dev/null
+    echo 02:1a:11:00:00:02 > "$G/functions/rndis.usb0/host_addr" 2>/dev/null
+
+    [ -e "$G/configs/c.1/acm.gs0" ]    || \
+        ln -s "$G/functions/acm.gs0"    "$G/configs/c.1/" 2>/dev/null
+    [ -e "$G/configs/c.1/rndis.usb0" ] || \
+        ln -s "$G/functions/rndis.usb0" "$G/configs/c.1/" 2>/dev/null
+
+    UDC=$($BB ls /sys/class/udc 2>/dev/null | $BB head -1)
+    [ -n "$UDC" ] || return 1
+    # Fails with EBUSY when the legacy g_serial driver already owns the
+    # controller - expected on the safe image, where the serial console still
+    # works because g_serial is what is driving it.
+    echo "$UDC" > "$G/UDC" 2>/dev/null || return 1
+    return 0
+}
+
+hdr "usb"
+if gadget_bind; then
+    ok "gadget acm+rndis bound"
+    wait_for /dev/ttyGS0 30 && ok "console on ttyGS0"
+    NET=1
+else
+    ok "gadget: legacy serial owns the UDC, no network this boot"
+    NET=0
+fi
+
+# ---------------------------------------------------------------- stage 4 ---
+hdr "network"
+if [ "$NET" = 1 ]; then
+    if wait_for /sys/class/net/usb0 40; then
+        ip link set usb0 up 2>/dev/null
+        ip addr add "$NET_IP/$NET_MASK" dev usb0 2>/dev/null
+        addr=$(ip -4 addr show usb0 2>/dev/null | $BB awk '/inet /{print $2}')
+        ok "usb0 $addr"
+        if command -v nc >/dev/null 2>&1; then
+            (nc -l -p "$SHELL_PORT" -e /bin/sh >/dev/null 2>&1 &) 2>/dev/null
+            ok "shell on ${NET_IP}:${SHELL_PORT} (nc, unencrypted)"
+        fi
+    else
+        bad "usb0 did not appear"
+    fi
+else
+    say "  skipped"
+fi
+
+# ---------------------------------------------------------------- stage 5 ---
+hdr "rootfs"
+if ! wait_for /dev/sdc 50; then
+    bad "eMMC user area /dev/sdc not found"
+    exec /bin/sh
+fi
+sz=$($BB cat /sys/block/sdc/size 2>/dev/null)
+say "  /dev/sdc $((sz / 2048)) MiB, userdata at +$((USERDATA_OFF / 1048576)) MiB"
+
+# busybox mount -o loop,offset= does not work on this kernel, so the loop
+# device is set up by hand and mounted by name.
+setup_loop() {
+    cur=$($BB losetup /dev/loop0 2>/dev/null)
+    case "$cur" in
+        *sdc*) return 0 ;;
+    esac
+    $BB losetup -d /dev/loop0 2>/dev/null
+    $BB losetup -o "$USERDATA_OFF" /dev/loop0 /dev/sdc 2>/dev/null
+}
+
+if setup_loop; then
+    say "  loop0 -> /dev/sdc+$((USERDATA_OFF / 1048576)) MiB"
+else
+    bad "could not attach a loop device"
+fi
+
+MOUNTED=""
+for fs in f2fs ext4; do
+    say "  mounting $fs ..."
+    if $BB mount -t "$fs" -o rw /dev/loop0 /newroot 2>/dev/null; then
+        if [ -x /newroot/sbin/init ] || [ -x /newroot/usr/lib/systemd/systemd ]; then
+            MOUNTED=$fs
+            break
+        fi
+        $BB umount /newroot 2>/dev/null
+    fi
+done
+
+if [ -z "$MOUNTED" ]; then
+    bad "no Arch rootfs at the userdata offset"
+    say ""
+    say "  rescue shell on ttyGS0 / display"
+    if [ -c /dev/ttyGS0 ]; then
+        exec </dev/ttyGS0 >/dev/ttyGS0 2>&1
+    fi
+    exec /bin/sh
+fi
+
+bins=$($BB ls /newroot/usr/bin 2>/dev/null | $BB wc -l)
+osname=$($BB sed -n 's/^PRETTY_NAME=//p' /newroot/etc/os-release 2>/dev/null | $BB tr -d '"')
+ok "rootfs mounted ($MOUNTED), ${bins} binaries, ${osname}"
+
+# ---------------------------------------------------------------- stage 6 ---
+hdr "switch_root"
+$BB mkdir -p /newroot/dev /newroot/proc /newroot/sys /newroot/run 2>/dev/null
+mount --move /dev  /newroot/dev  2>/dev/null
+mount --move /proc /newroot/proc 2>/dev/null
+mount --move /sys  /newroot/sys  2>/dev/null
+
+say "  starting /sbin/init on $MOUNTED"
+say ""
+exec $BB switch_root /newroot /sbin/init
+
+bad "switch_root failed"
+exec /bin/sh

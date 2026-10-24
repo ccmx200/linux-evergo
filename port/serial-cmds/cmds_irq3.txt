@@ -1,0 +1,7 @@
+D=/proc/device-tree/soc/wifi@18000000
+echo === WIFI NODE interrupts ===
+od -A d -t x1 $D/interrupts
+echo === ALL IRQ LINES 150-170 ===
+cat /proc/interrupts | sed -n '20,40p'
+echo === dmesg errors near probe ===
+dmesg | grep -E "ERROR|Fail" | grep -iE "irq|wlan" | head -6

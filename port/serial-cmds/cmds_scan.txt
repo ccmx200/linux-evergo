@@ -1,0 +1,4 @@
+dmesg | grep -iE "scan wfsys" | head -20
+dmesg | grep -iE "scan conn_on" | head -20
+dmesg | grep -iE "scan conn_off" | head -20
+dmesg | grep -iE "scan spm" | head -15

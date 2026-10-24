@@ -1,0 +1,3 @@
+dmesg | grep -iE "idle check|CPU state|mt6833-conn" | head -15
+dmesg | grep -iE "wmt-shim" | head -15
+dmesg | grep "\[wlan\]" | tail -12

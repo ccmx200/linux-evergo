@@ -1,0 +1,8 @@
+echo 1 > /sys/module/mt6833_conn/parameters/replay_probe
+echo 1 > /sys/module/mt6833_conn/parameters/stp_before_probe
+sleep 1
+echo 1 > /proc/conn_cycle
+sleep 12
+dmesg | grep -E "stp: (clk_en|clk_138|reset|set_stp|ant_swap).*resp" | tail -6
+echo "=== probe ==="
+dmesg | grep -iE "Chip ID\[|FW_START|Fail reason" | tail -3

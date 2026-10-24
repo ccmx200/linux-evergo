@@ -1,0 +1,7 @@
+grep -rln "3008" /etc/bash.bashrc /etc/profile.d/ /etc/bash/ 2>/dev/null
+echo "---"
+grep -rn "3008" /etc/bash.bashrc 2>/dev/null | head -5
+echo "=== fb devices ==="
+ls /dev/fb* 2>/dev/null || echo "no fb"
+echo "=== tty1 getty ==="
+systemctl is-active getty@tty1 2>&1

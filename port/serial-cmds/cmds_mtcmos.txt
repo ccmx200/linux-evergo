@@ -1,0 +1,7 @@
+dmesg | grep -iE "MTCMOS:" | head -4
+echo === idle ===
+dmesg | grep -iE "idle check|monflg" | head -4
+echo === own ===
+dmesg | grep -iE "Driver own timeout|own back|Fail reason" | head -4
+echo === net ===
+ls /sys/class/net/

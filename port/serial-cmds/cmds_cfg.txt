@@ -1,0 +1,5 @@
+grep -c cfg80211 /proc/kallsyms
+grep -m3 cfg80211 /proc/kallsyms
+cat /proc/net/wireless
+ls /sys/class/ieee80211
+cat /proc/modules

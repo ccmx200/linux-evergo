@@ -1,0 +1,8 @@
+P=/sys/module/mt6833_conn/parameters
+echo === CYCLE WITH STP ===
+echo 1 > $P/replay_probe
+echo 1 > /proc/conn_cycle
+sleep 12
+dmesg | grep -E "stp: done|running WMT/STP|DRIVER OWN Done|Fail reason|FW_START|ram_entry" | tail -10
+echo === NET ===
+ls /sys/class/net

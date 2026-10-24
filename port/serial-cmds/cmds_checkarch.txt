@@ -1,0 +1,8 @@
+cat /proc/version
+echo "=== conn driver present? ==="
+dmesg | grep -c "mt6833-conn"
+echo "=== storage ==="
+cat /proc/partitions
+echo "=== ext4 on sdc readable? ==="
+mkdir -p /mnt/t 2>/dev/null
+mount -t ext4 -o ro /dev/sdc /mnt/t 2>&1 && { echo "MOUNT OK"; ls /mnt/t | head -8; cat /mnt/t/etc/os-release 2>/dev/null | head -2; }

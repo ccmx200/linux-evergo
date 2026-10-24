@@ -1,0 +1,13 @@
+echo ===W1_REMOUNT===
+mount -o remount,rw /newroot && echo RW_OK || echo RW_FAIL
+echo ===W2_WDT_SCRIPT===
+echo '#!/bin/sh' > /newroot/bin/wdtfeed
+echo 'while true; do echo 1 > /dev/watchdog; sleep 8; done' >> /newroot/bin/wdtfeed
+busybox chmod 755 /newroot/bin/wdtfeed && echo CHMOD_OK || echo CHMOD_FAIL
+cat /newroot/bin/wdtfeed
+echo ===W3_INITTAB===
+echo 'wdt::respawn:/bin/wdtfeed' >> /newroot/etc/inittab
+busybox grep -c wdt /newroot/etc/inittab
+echo ===W4_SYNC===
+sync
+echo ===DONE===

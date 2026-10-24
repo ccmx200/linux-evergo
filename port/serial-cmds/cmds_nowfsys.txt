@@ -1,0 +1,9 @@
+echo === WFSYS ===
+dmesg | grep -iE "WFSYS:" | head -6
+echo === IDLE ===
+dmesg | grep -iE "idle check|monflg" | head -4
+echo === CONON ===
+dmesg | grep -E "conon \+0x(4c0|600):" | head -2
+echo === WLAN ===
+dmesg | grep -iE "Driver own|own back|Fail reason" | head -4
+ls /sys/class/net/

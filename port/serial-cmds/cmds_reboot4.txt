@@ -1,0 +1,3 @@
+sync
+echo GOING_TO_BOOTLOADER
+busybox reboot

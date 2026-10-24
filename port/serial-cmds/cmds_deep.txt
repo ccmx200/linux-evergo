@@ -1,0 +1,8 @@
+echo "=== all block devices ==="
+ls /sys/block/
+echo "=== sdc at 1 GiB (f2fs data would be non-zero here) ==="
+dd if=/dev/sdc bs=1M skip=1024 count=1 2>/dev/null | hexdump -C | head -4
+echo "=== sdc at 3 GiB (past our 2.2GB of files) ==="
+dd if=/dev/sdc bs=1M skip=3072 count=1 2>/dev/null | hexdump -C | head -4
+echo "=== count non-zero in first MiB ==="
+dd if=/dev/sdc bs=1M count=1 2>/dev/null | tr -d '\000' | wc -c

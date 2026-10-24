@@ -1,0 +1,14 @@
+echo "=== whoami ==="
+whoami
+echo "=== uptime ==="
+uptime
+echo "=== disk ==="
+df -h /
+echo "=== os ==="
+cat /etc/os-release | head -2
+echo "=== pacman ==="
+pacman -Q | wc -l
+echo "=== kernel modules ==="
+lsmod | head -5
+echo "=== display ==="
+ls /dev/fb* 2>/dev/null || echo "no fb"

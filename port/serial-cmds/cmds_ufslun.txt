@@ -1,0 +1,17 @@
+echo "=== scsi devices ==="
+ls /sys/class/scsi_device/ 2>/dev/null
+echo "=== block -> scsi mapping ==="
+for b in /sys/block/sd*; do
+  echo -n "$(basename $b): "
+  readlink -f "$b/device" 2>/dev/null
+done
+echo "=== ufs host / lun info ==="
+ls /sys/bus/ufs/devices/ 2>/dev/null
+dmesg | grep -iE "ufs|ufshcd" | head -20
+echo "=== scsi device vendor/model ==="
+for d in /sys/class/scsi_device/*; do
+  echo -n "$(basename $d): "
+  cat "$d/device/vendor" 2>/dev/null | tr -d '\n'
+  echo -n " / "
+  cat "$d/device/model" 2>/dev/null
+done

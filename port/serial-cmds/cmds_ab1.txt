@@ -1,0 +1,9 @@
+P=/sys/module/mt6833_conn/parameters
+echo "=== A: emi_use_wifi=0 (bf000000) ==="
+echo 0 > $P/emi_use_wifi
+echo 1 > $P/replay_probe
+echo 1 > /proc/conn_cycle
+sleep 9
+dmesg | grep -E "EMI remap|FWDL-DBG|DRIVER OWN Done|Fail reason|Chip No Ack" | tail -10
+echo === NET ===
+ls /sys/class/net

@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: GPL-2.0
+config MTK_CONN_MT6833_VENDOR
+	bool "Vendor MT6833 CONN platform layer (port)"
+	depends on MTK_MT6833_CONN
+	default n
+	help
+	  The vendor connectivity/common/common_main platform code for MT6833,
+	  compiled so that its power-on and MCU-bring-up sequences can be run
+	  on mainline instead of the hand-written approximation.

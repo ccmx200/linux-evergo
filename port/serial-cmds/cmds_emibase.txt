@@ -1,0 +1,3 @@
+dmesg | grep -iE "emi base|EMI base from|emi_base|reserved|0xbe000000|0xbf000000" | head -12
+echo "=== dt ==="
+cat /proc/device-tree/reserved-memory/consys-reserve-memory/reg 2>/dev/null | od -A n -t x4 | head -2

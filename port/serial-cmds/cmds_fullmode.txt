@@ -1,0 +1,9 @@
+P=/sys/module/mt6833_conn/parameters
+echo FULLMODE_START
+echo 0 > $P/minimal
+echo 1 > $P/wf_pwr_ctl_write
+echo 1 > $P/wf_cpu_rst_write
+echo 1 > /proc/conn_cycle
+sleep 2
+dmesg | grep -iE "conn_cycle|idle check|WFSYS:" | tail -10
+echo FULLMODE_END

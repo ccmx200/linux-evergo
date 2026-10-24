@@ -1,0 +1,4 @@
+echo === IOMEM RESERVED ===
+grep -iE "reserved|consys|wifi|0xbe|0xbf" /proc/iomem | head -25
+echo === IOMEM HEAD ===
+head -20 /proc/iomem

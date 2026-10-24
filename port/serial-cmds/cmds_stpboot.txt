@@ -1,0 +1,6 @@
+cat /proc/version
+echo "=== stp at boot ==="
+dmesg | grep -E "stp: " | head -12
+echo "=== result ==="
+dmesg | grep -iE "Chip ID\[|FW_START|Fail reason|probe success" | tail -6
+ls /sys/class/net

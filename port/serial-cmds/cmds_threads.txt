@@ -1,0 +1,4 @@
+echo === HIF / WLAN KERNEL THREADS ===
+ps -ef 2>/dev/null | grep -iE "hif|wlan|wmt" | head -10
+echo === ALL KERNEL THREADS (sample) ===
+ps -ef 2>/dev/null | head -20

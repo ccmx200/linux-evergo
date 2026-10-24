@@ -1,0 +1,7 @@
+echo "r 0x180c1140" > /proc/conn_reg
+echo "r 0x18002600" > /proc/conn_reg
+echo "r 0x18007104" > /proc/conn_reg
+sleep 2
+dmesg | grep -iE "reg r 0x180c1140|reg r 0x18002600|reg r 0x18007104" | tail -4
+echo === NET ===
+ls /sys/class/net

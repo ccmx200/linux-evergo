@@ -1,0 +1,2 @@
+echo TRY_BOOTLOADER
+reboot bootloader

@@ -1,0 +1,8 @@
+echo "=== running kernel ==="
+cat /proc/version
+echo "=== dtb version tag ==="
+od -A n -t x4 /proc/device-tree/reserved-memory/wifi-reserve-memory/reg 2>/dev/null
+od -A n -t x4 /proc/device-tree/reserved-memory/wifi-reserve-memory/size 2>/dev/null
+echo "=== wifi node mr ==="
+od -A n -t x4 /proc/device-tree/soc/wifi@18000000/memory-region 2>/dev/null
+echo "=== image sizes on host ==="

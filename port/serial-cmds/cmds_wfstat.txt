@@ -1,0 +1,8 @@
+echo === WFSYS STATUS REGS ===
+echo "r 0x18060000" > /proc/conn_reg
+echo "r 0x180602cc" > /proc/conn_reg
+echo "r 0x18060b10" > /proc/conn_reg
+echo "r 0x18000000" > /proc/conn_reg
+echo "r 0x18000010" > /proc/conn_reg
+sleep 2
+dmesg | grep "reg r 0x180" | tail -8

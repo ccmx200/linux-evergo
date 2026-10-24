@@ -1,0 +1,1 @@
+dmesg | grep -iE "reg r 0x180c2|reg r 0x180c1" | tail -6

@@ -1,0 +1,11 @@
+echo === BOOT STATE ===
+dmesg | grep -iE "idle check|infra gate" | head -3
+echo === NATIVE PROBE ===
+dmesg | grep -iE "DRIVER OWN|own back|Fail reason" | tail -4
+echo === REPLAY ===
+echo 1 > /sys/module/mt6833_conn/parameters/replay_probe
+echo 1 > /proc/conn_cycle
+sleep 4
+dmesg | grep -iE "replay|DRIVER OWN Done|own back|Fail reason|ready bit|NIC cap|wlan0" | tail -12
+echo === NET ===
+ls /sys/class/net

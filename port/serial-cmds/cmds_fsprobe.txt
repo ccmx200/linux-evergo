@@ -1,0 +1,8 @@
+echo "=== sdc offset 0 (GPT would be here) ==="
+dd if=/dev/sdc bs=512 count=1 2>/dev/null | hexdump -C | head -4
+echo "=== sdc offset 1024: f2fs superblock magic should be 10 20 f5 f2 ==="
+dd if=/dev/sdc bs=1 skip=1024 count=16 2>/dev/null | hexdump -C
+echo "=== sda offset 1024 ==="
+dd if=/dev/sda bs=1 skip=1024 count=16 2>/dev/null | hexdump -C
+echo "=== sdb offset 1024 ==="
+dd if=/dev/sdb bs=1 skip=1024 count=16 2>/dev/null | hexdump -C

@@ -1,0 +1,4 @@
+dmesg | grep -iE "hif70|hifE0" | head -20
+dmesg | grep -iE "WFSYS:|idle check" | head -8
+dmesg | grep -iE "Driver own timeout|probe failed" | head -4
+ls /sys/class/net/

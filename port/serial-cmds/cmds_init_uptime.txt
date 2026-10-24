@@ -1,0 +1,27 @@
+echo ===W1_REWRITE_INIT===
+echo '#!/bin/sh' > /bin/evergo-init
+echo 'export PATH=/sbin:/bin:/usr/sbin:/usr/bin' >> /bin/evergo-init
+echo 'mount -t proc none /proc 2>/dev/null' >> /bin/evergo-init
+echo 'mount -t sysfs none /sys 2>/dev/null' >> /bin/evergo-init
+echo 'mkdir -p /dev/pts /tmp /run' >> /bin/evergo-init
+echo 'mount -t devpts none /dev/pts 2>/dev/null' >> /bin/evergo-init
+echo 'mount -t tmpfs none /tmp 2>/dev/null' >> /bin/evergo-init
+echo 'mount -t tmpfs none /run 2>/dev/null' >> /bin/evergo-init
+echo '/bin/wdtfeed &' >> /bin/evergo-init
+echo 'exec >/dev/ttyGS0 2>&1 </dev/ttyGS0' >> /bin/evergo-init
+echo 'echo ""' >> /bin/evergo-init
+echo 'echo "=========================================================="' >> /bin/evergo-init
+echo 'echo "   Alpine $(cat /etc/alpine-release 2>/dev/null) on evergo"' >> /bin/evergo-init
+echo 'echo "   kernel: $(uname -r)"' >> /bin/evergo-init
+echo 'echo "=========================================================="' >> /bin/evergo-init
+echo 'echo "BOOT_TO_SHELL_UPTIME: $(cut -d" " -f1 /proc/uptime)"' >> /bin/evergo-init
+echo 'head -3 /proc/meminfo' >> /bin/evergo-init
+echo 'echo "dmesg lines: $(dmesg | wc -l)"' >> /bin/evergo-init
+echo 'echo ""' >> /bin/evergo-init
+echo 'exec /bin/sh' >> /bin/evergo-init
+chmod 755 /bin/evergo-init
+echo ===W2_CAT===
+cat /bin/evergo-init
+echo ===W3_SYNC===
+sync
+echo ===END===

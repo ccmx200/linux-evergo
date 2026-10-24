@@ -1,0 +1,5 @@
+dmesg | grep -iE "Driver own|DRIVER OWN|wlanProbe|wlan0|ready bit|NIC|scan" | head -20
+echo ===
+ls /sys/class/net/
+echo ===
+dmesg | tail -25

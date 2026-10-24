@@ -1,0 +1,3 @@
+dmesg | grep -iE "RGU reset|idle check|CPU state|ROM patch" | head -10
+dmesg | grep -iE "Driver own|DRIVER OWN|wlanProbe|wlan0" | head -10
+ls /sys/class/net/

@@ -1,0 +1,4 @@
+echo === NET ===
+ls /sys/class/net
+echo === WLAN ===
+dmesg | grep -iE "DRIVER OWN|own back|Fail reason|wlanAdapterStart|wlan0|ready bit|NIC cap|net_device" | tail -20

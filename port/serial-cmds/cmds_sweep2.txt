@@ -1,0 +1,20 @@
+P=/sys/module/mt6833_conn/parameters
+echo R2_START
+echo "--- steps=1 no_clear=0 (memset+remap) ---"
+echo 0 > $P/no_clear; echo 1 > $P/steps; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=1 no_clear=1 (remap only, no wipe) ---"
+echo 1 > $P/no_clear; echo 1 > $P/steps; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=3 no_clear=0 patch_mode=1 (MCU only) ---"
+echo 0 > $P/no_clear; echo 3 > $P/steps; echo 1 > $P/patch_mode; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=3 patch_mode=2 (BT+WiFi) ---"
+echo 2 > $P/patch_mode; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=3 patch_mode=3 (none) ---"
+echo 3 > $P/patch_mode; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=3 patch_mode=0 patch_hdr=0 (no strip) ---"
+echo 0 > $P/patch_mode; echo 0 > $P/patch_hdr; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=3 patch_hdr=64 ---"
+echo 64 > $P/patch_hdr; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=3 patch_hdr=32 (back to normal) ---"
+echo 32 > $P/patch_hdr; echo 1 > /proc/conn_cycle; sleep 1
+echo R2_END
+dmesg | grep -E "conn_cycle: (minimal|done)" | tail -16

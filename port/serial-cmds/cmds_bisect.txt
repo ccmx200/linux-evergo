@@ -1,0 +1,30 @@
+echo ==== steps=0 (pure minimal) ====
+echo 0 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+echo ==== steps=1 (EMI remap) ====
+echo 1 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+echo ==== steps=2 (ROM patch) ====
+echo 2 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+echo ==== steps=3 (remap+patch) ====
+echo 3 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+echo ==== steps=4 (vendor prep) ====
+echo 4 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+echo ==== steps=7 (remap+patch+vendor) ====
+echo 7 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+echo ==== steps=15 (everything) ====
+echo 15 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+echo ==== SUMMARY ====
+dmesg | grep -E "conn_cycle: (minimal|done)" | tail -20

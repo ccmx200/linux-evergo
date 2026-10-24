@@ -1,0 +1,1 @@
+dmesg | grep "reg r 0xbf" | tail -8

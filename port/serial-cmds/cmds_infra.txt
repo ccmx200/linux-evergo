@@ -1,0 +1,9 @@
+echo === INFRA GATE ===
+dmesg | grep -iE "infra gate|idle check" | head -4
+echo === HIF ACCESS ===
+echo "r 0x18007030" > /proc/conn_reg
+echo "r 0x18007000" > /proc/conn_reg
+echo "r 0x1800712c" > /proc/conn_reg
+echo "r 0x18002600" > /proc/conn_reg
+sleep 1
+dmesg | grep -E "reg r |infra gate|idle check" | tail -8

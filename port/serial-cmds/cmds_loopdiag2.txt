@@ -1,0 +1,7 @@
+losetup -o 12952010752 /dev/loop0 /dev/sdc 2>&1
+echo "losetup_rc=$?"
+losetup /dev/loop0 2>&1
+echo "=== mount loop0 ==="
+mount -t f2fs -o ro /dev/loop0 /newroot 2>&1
+echo "mount_rc=$?"
+ls /newroot 2>/dev/null | head -8

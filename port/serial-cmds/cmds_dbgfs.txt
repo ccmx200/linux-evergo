@@ -1,0 +1,13 @@
+mkdir -p /sys/kernel/debug
+mount -t debugfs none /sys/kernel/debug 2>/dev/null
+echo === DEBUGFS ===
+ls /sys/kernel/debug/ 2>/dev/null | head -20
+echo === WLAN NODES ===
+ls -R /sys/kernel/debug/wlan 2>/dev/null | head -30
+ls /sys/kernel/debug/ieee80211 2>/dev/null | head -5
+echo === SRAM SAMPLE ===
+echo "r 0x18070000" > /proc/conn_reg
+echo "r 0x18070004" > /proc/conn_reg
+echo "r 0x18070400" > /proc/conn_reg
+sleep 2
+dmesg | grep "reg r 0x18070" | tail -4

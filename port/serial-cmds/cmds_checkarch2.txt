@@ -1,0 +1,5 @@
+mount | grep sdc
+echo "=== contents ==="
+ls /mnt/t 2>/dev/null | head -10
+echo "=== os-release ==="
+cat /mnt/t/etc/os-release 2>/dev/null | head -3

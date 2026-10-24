@@ -1,0 +1,6 @@
+dmesg | grep -E "ERROR\(" | grep -iE "irq|159" | head -5
+echo === any 159 mention ===
+dmesg | grep -E "159" | head -5
+echo === irq count ===
+cat /proc/interrupts | wc -l
+cat /proc/interrupts | tail -22 | head -4

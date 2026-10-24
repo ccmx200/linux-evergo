@@ -1,0 +1,6 @@
+echo === IRQ PROBE ===
+dmesg | grep -iE "irqprobe" | head -10
+echo === IRQ TABLE ===
+grep -E "^ *159:|conn-irqprobe|wlan" /proc/interrupts
+echo === HW STATE ===
+dmesg | grep -iE "glBusSetIrq|request_irq" | head -4

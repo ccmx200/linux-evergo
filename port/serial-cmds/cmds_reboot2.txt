@@ -1,0 +1,3 @@
+echo REBOOTING_VIA_BUSYBOX
+sync
+busybox reboot -f

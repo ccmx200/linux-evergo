@@ -1,0 +1,10 @@
+echo "=== dt nodes ==="
+ls /proc/device-tree/reserved-memory/ 2>/dev/null
+echo "--- wifi reserve reg ---"
+od -A n -t x4 /proc/device-tree/reserved-memory/wifi-reserve-memory/reg 2>/dev/null
+echo "--- consys reserve reg ---"
+od -A n -t x4 /proc/device-tree/reserved-memory/consys-reserve-memory/reg 2>/dev/null
+echo "--- wifi node mr ---"
+od -A n -t x4 /proc/device-tree/soc/wifi@18000000/memory-region 2>/dev/null
+echo "=== image_info ==="
+cat /proc/cmdline

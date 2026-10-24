@@ -1,0 +1,11 @@
+echo ===UPTIME===
+cat /proc/uptime
+echo ===BOOTTIME===
+cat /proc/stat
+echo ===DMESG_COUNT===
+dmesg | wc -l
+echo ===DMESG_HEAD===
+dmesg | head -12
+echo ===RELEASE===
+cat /etc/alpine-release
+echo ===END===

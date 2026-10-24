@@ -1,0 +1,4 @@
+ls -l /dev/mem 2>/dev/null; echo mem_rc=$?
+busybox devmem 0x18007000 2>&1 | head -3; echo devmem_rc=$?
+busybox --list 2>/dev/null | tr ' ' '\n' | grep -x devmem
+cat /proc/iomem | grep -iE "1800|System RAM" | head -5

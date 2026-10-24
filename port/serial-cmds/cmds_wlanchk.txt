@@ -1,0 +1,5 @@
+dmesg | grep -ciE "wlan"
+echo "=== wlan lines ==="
+dmesg | grep -iE "wlan|wifi" | tail -20
+echo "=== conn ==="
+dmesg | grep -iE "mt6833-conn" | tail -8

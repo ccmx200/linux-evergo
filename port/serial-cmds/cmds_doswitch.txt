@@ -1,0 +1,2 @@
+echo SWITCHING_NOW
+exec switch_root /newroot /sbin/init

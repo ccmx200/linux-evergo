@@ -1,0 +1,14 @@
+echo "=== loop devices ==="
+ls -l /dev/loop* 2>/dev/null || echo "NONE"
+echo "=== loop-control ==="
+ls -l /dev/loop-control 2>/dev/null
+echo "=== losetup ==="
+ls -l /sbin/losetup /usr/sbin/losetup 2>/dev/null
+echo "=== manual losetup ==="
+losetup -o 12952010752 /dev/loop0 /dev/sdc 2>&1
+echo "rc=$?"
+losetup 2>&1 | head -5
+echo "=== mount the loop device ==="
+mount -t f2fs -o ro /dev/loop0 /newroot 2>&1
+echo "rc=$?"
+ls /newroot 2>/dev/null | head -6

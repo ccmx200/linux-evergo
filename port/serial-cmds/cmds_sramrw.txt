@@ -1,0 +1,13 @@
+echo === SRAM WRITE TEST ===
+echo "r 0x18070000" > /proc/conn_reg
+echo "w 0x18070000 0x12345678" > /proc/conn_reg
+echo "r 0x18070000" > /proc/conn_reg
+echo "w 0x18070000 0xdeadbeef" > /proc/conn_reg
+echo "r 0x18070000" > /proc/conn_reg
+sleep 2
+echo === PDMA REGS ===
+echo "r 0x18004000" > /proc/conn_reg
+echo "w 0x18004000 0x00000001" > /proc/conn_reg
+echo "r 0x18004000" > /proc/conn_reg
+sleep 2
+dmesg | grep -E "reg [rw] 0x18070000|reg [rw] 0x18004000" | tail -8

@@ -1,0 +1,6 @@
+echo === NETDEV ===
+ls /sys/class/net
+echo === WLAN TAIL ===
+dmesg | grep -iE "wlan|wmt-shim" | tail -25
+echo === READY ===
+dmesg | grep -iE "Motor own|own back|Fail reason|ready bit|NIC|wlan0|wlanAdapterStart" | tail -12

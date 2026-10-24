@@ -1,0 +1,6 @@
+echo "=== partition scan messages ==="
+dmesg | grep -iE "sdc|gpt|partition|scsi disk|ufs" | tail -14
+echo "=== do sdcN nodes exist? ==="
+ls /dev/sdc* 2>/dev/null
+echo "=== try reading GPT header at LBA1 (expect EFI PART) ==="
+dd if=/dev/sdc bs=512 skip=1 count=1 2>/dev/null | hexdump -C | head -3

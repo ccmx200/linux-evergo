@@ -1,0 +1,6 @@
+echo === HIF THREAD START ===
+dmesg | grep -iE "starts running|hif" | head -8
+echo === KAL_HIF_THREAD ===
+dmesg | grep -iE "kalHifThread|HifThread|kthread" | head -6
+echo === THREADS ===
+ps -ef 2>/dev/null | awk 'NR>1 && $8 ~ /\[/ {print $8}' | grep -iE "hif|main|wlan" | head -5

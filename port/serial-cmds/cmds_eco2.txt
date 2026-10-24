@@ -1,0 +1,3 @@
+dmesg | grep -iE "TOP_HVR|Chip ID\[|Fail reason|DRIVER OWN Done|FW_START|ram_entry|EMI copy" | tail -12
+echo "=== NET ==="
+ls /sys/class/net

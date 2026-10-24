@@ -1,0 +1,8 @@
+echo === IRQ 159 / WLAN ===
+grep -E "^ *159:|wlan|wifi|consys" /proc/interrupts
+echo === request_irq errors ===
+dmesg | grep -iE "request_irq|AXI_WLAN|WIFI-OF|enable_irq_wake" | head -8
+echo === DT NODE ===
+ls /proc/device-tree | grep -i -E "wifi|consys"
+echo === NODE INTERRUPTS ===
+ls /proc/device-tree/soc*/ | head -5

@@ -1,0 +1,10 @@
+echo === BUSPROT ===
+dmesg | grep -iE "bus protect" | head -4
+echo === IDLE ===
+dmesg | grep -iE "idle check|monflg" | head -4
+echo === CONON600 ===
+dmesg | grep -E "conon \+0x(4c0|500|600):" | head -3
+echo === WLAN ===
+dmesg | grep -iE "Driver own|own back|Fail reason|wlan0|net_dev" | head -5
+echo === NET ===
+ls /sys/class/net/

@@ -1,0 +1,81 @@
+# SPDX-License-Identifier: GPL-2.0
+#
+# MediaTek Gen4M WiFi driver for MT6833 (Dimensity 810) / SOC2_1X1
+#
+# This Kconfig is sourced from drivers/net/wireless/mediatek/Kconfig by
+# apply.sh.  The driver is the vendor "gen4m" (Gen4M = MT6620..MT7961 family)
+# WLAN stack, which on this SoC is a fullmac PCIe/AXI-style driver talking to
+# the CONN subsystem over the on-chip AXI/PDMA path at 0x18000000.
+
+menuconfig MTK_WLAN_GEN4M
+	tristate "MediaTek Gen4M WiFi (MT6833 SOC2_1X1, AXI HIF)"
+	depends on CFG80211
+	depends on WEXT_CORE && WEXT_PROC
+	depends on FW_LOADER
+	select CRC32
+	help
+	  Driver for the MediaTek Gen4M WiFi MAC that is embedded in the
+	  MT6833 (Dimensity 810) CONN subsystem.  The MAC is reached through
+	  the AXI/PDMA HIF (register block 0x18000000, IRQ via GIC SPI 377),
+	  not through SDIO, PCIe or USB.
+
+	  This driver needs the MTK CONN/WMT core (mtk_wcn_wmt_* symbols) to be
+	  built and loaded first; that core powers up the CONN MTCMOS domain and
+	  downloads the WiFi firmware.
+
+	  To compile this driver as a module, choose M here: the module will be
+	  called wlan_6833_axi.
+
+if MTK_WLAN_GEN4M
+
+config MTK_WLAN_GEN4M_CHIP_SOC2_1X1
+	bool "SOC2_1X1 chip support (MT6833 / MT6853)"
+	default y
+	help
+	  Build the SOC2_1X1 chip layer (chips/soc2_1x1/soc2_1x1.c) and define
+	  -DSOC2_1X1 -DCONFIG_MTK_WIFI_VHT80.  SOC2_1X1 is the 1x1 802.11ac
+	  Gen4M MAC found on MT6833; the vendor tree builds it for the Redmi
+	  Note 11T 5G (MTK_COMBO_CHIP=SOC2_1X1 in connectivity/Makefile).
+
+	  The object list shipped in objects.mk is generated for SOC2_1X1 only.
+	  The other chips in the vendor tree (MT6632, MT7663, MT7668, CONNAC,
+	  SOC2_2X2, MT7915, MT7961, SOC3_0, SOC5_0, SOC7_0) are not wired up
+	  and enabling this option is mandatory for a successful build.
+
+config MTK_WLAN_GEN4M_WMT
+	bool "Use the MediaTek WMT/CONN core for power-on and firmware download"
+	default y
+	help
+	  Define -DCFG_MTK_ANDROID_WMT=1, which makes the driver call the
+	  mtk_wcn_wmt_* API (mtk_wcn_wmt_wlan_reg, mtk_wcn_wmt_ic_info_get,
+	  mtk_wcn_wmt_msgcb_reg, mtk_wcn_wmt_do_reset_only,
+	  mtk_wcn_wmt_mpu_lock_aquire, ...) instead of being a standalone MAC
+	  driver.  This is the correct mode for MT6833: the CONN power domain,
+	  CCIF clock and firmware download are owned by the WMT core.
+
+config MTK_WLAN_GEN4M_EMI
+	bool "Program the EMI MPU for the WiFi reserved region"
+	default n
+	help
+	  Define -DCONFIG_WLAN_MTK_EMI=1 and compile in the EMI MPU calls in
+	  os/linux/plat/mt6833/plat_priv.c (mtk_emimpu_init_region et al).
+
+	  Leave this OFF.  The MT6833 bootloader (LK) already programs the EMI
+	  MPU for the CONN/wifi reserved region, exactly as the MT6895 mainline
+	  port relies on, and mainline has no mtk_emimpu_* API.  Turning this on
+	  would pull in <soc/mediatek/emi.h>, which does not exist upstream.
+
+config MTK_WLAN_GEN4M_ADAPTOR
+	tristate "MediaTek WiFi character device (/dev/wmtWifi)"
+	depends on MTK_WLAN_GEN4M
+	default n
+	help
+	  Build wlan/adaptor as the connadp module, which exposes the
+	  /dev/wmtWifi character device that the Android WiFi HAL uses to power
+	  the chip on and off from userspace.
+
+	  Not needed with an Alpine/nl80211 userspace that relies on the driver
+	  doing its own power-on through the WMT core: select N unless something
+	  in userspace opens /dev/wmtWifi.
+
+endif # MTK_WLAN_GEN4M

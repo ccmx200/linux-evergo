@@ -1,0 +1,17 @@
+P=/sys/module/mt6833_conn/parameters
+echo R3_START
+echo 2 > $P/patch_mode
+echo 32 > $P/patch_hdr
+echo 0 > $P/no_clear
+echo "--- steps=5 patch_mode=2 (remap+vendor, no MCU patch) ---"
+echo 5 > $P/steps; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=7 patch_mode=2 (adds BT+WiFi patches) ---"
+echo 7 > $P/steps; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=13 patch_mode=2 (adds probe) ---"
+echo 13 > $P/steps; echo 1 > /proc/conn_cycle; sleep 1
+echo "--- steps=15 patch_mode=2 (everything) ---"
+echo 15 > $P/steps; echo 1 > /proc/conn_cycle; sleep 1
+echo R3_END
+dmesg | grep -E "conn_cycle: (minimal|done)" | tail -10
+echo === IDLE CHECK ===
+dmesg | grep -iE "idle check|CPU state" | tail -6

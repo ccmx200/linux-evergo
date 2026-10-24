@@ -1,0 +1,7 @@
+echo === CONN2AP SW IRQ STATUS (0x18002150 bits27:24) ===
+echo "r 0x18002150" > /proc/conn_reg
+echo "r 0x1800214C" > /proc/conn_reg
+echo "r 0x18002100" > /proc/conn_reg
+echo "r 0x18007100" > /proc/conn_reg
+sleep 3
+dmesg | grep -E "reg r 0x18002|reg r 0x180071|reg r 0x1800" | tail -6

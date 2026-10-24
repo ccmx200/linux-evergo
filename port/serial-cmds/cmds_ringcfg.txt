@@ -1,0 +1,4 @@
+echo === PDMA RX RING CONFIG ===
+dmesg | grep -A20 "Rx Ring configuration" | head -26
+echo === PDMA TX RING CONFIG ===
+dmesg | grep -A14 "Tx Ring configuration" | head -18

@@ -1,0 +1,13 @@
+echo ===STEP1_DISK===
+blockdev --getsize64 /dev/sdc
+echo ===STEP2_LOSETUP===
+losetup -o 12952010752 --sizelimit 115007815680 /dev/loop0 /dev/sdc && echo LOSETUP_OK || echo LOSETUP_FAIL
+echo ===STEP3_LIST===
+losetup -a
+echo ===STEP4_MOUNT===
+mount -t ext4 -o ro /dev/loop0 /newroot && echo MOUNT_OK || echo MOUNT_FAIL
+echo ===STEP5_LS===
+ls /newroot
+echo ===STEP6_RELEASE===
+cat /newroot/etc/alpine-release
+echo ===DONE===

@@ -1,0 +1,20 @@
+echo === steps=1 again ====
+echo 1 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+echo === steps=1 again2 ====
+echo 1 > /proc/conn_cycle
+sleep 1
+echo === steps=5 (remap+vendor) ====
+echo 5 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+echo === steps=6 (patch+vendor) ====
+echo 6 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+echo === steps=13 (remap+vendor+probe) ====
+echo 13 > /sys/module/mt6833_conn/parameters/steps
+echo 1 > /proc/conn_cycle
+sleep 1
+dmesg | grep -E "conn_cycle: done" | tail -6

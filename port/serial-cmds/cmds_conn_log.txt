@@ -1,0 +1,3 @@
+dmesg | grep -iE "mt6833-conn|mt6833_conn" | head -40
+echo ---
+cat /proc/uptime

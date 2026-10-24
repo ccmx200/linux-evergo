@@ -1,0 +1,4 @@
+dmesg | grep -iE "axiGetRsvMemSize|_init_resv_mem|probe with driver wlan|gWifiRsvMemSize|rsv mem" | tail -6
+echo "=== wifi result ==="
+dmesg | grep -iE "Chip ID\[|FW_START|Fail reason|probe success" | tail -6
+ls /sys/class/net

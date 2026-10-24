@@ -1,0 +1,10 @@
+echo === ALIVE ===
+cat /proc/version | cut -c1-60
+echo === TOPCKGEN ===
+dmesg | grep -E "topckgen \+0x(000|010|020|030|040|050|060|070|080|090|0a0|0b0|0c0|0d0|0e0|0f0|100|110|120|130|140|150|160|170):" | head -20
+echo === INFRAAO ===
+dmesg | grep -E "infraao \+0x(000|020|040|060|080|0a0|0c0|0e0):" | head -10
+echo === SRCLKEN ===
+dmesg | grep -E "srclken \+0x000:" | head -2
+echo === IDLE ===
+dmesg | grep -iE "conon \+0x600|idle check" | head -3

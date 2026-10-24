@@ -1,0 +1,4 @@
+echo === ECO INFO ===
+dmesg | grep -iE "TOP_HVR|TOP_FVR|Chip ID\[|SetChipEcoInfo|AccessReg|access register" | tail -10
+echo === INIT PROGRESS ===
+dmesg | grep -iE "INIT INFO|INIT ERROR" | grep -iE "hif|eco|chip|fwdl|download" | tail -10

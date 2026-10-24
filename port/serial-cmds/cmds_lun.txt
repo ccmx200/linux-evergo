@@ -1,0 +1,9 @@
+echo "=== block sizes (512-byte sectors) ==="
+for d in /sys/block/sd*; do
+    n=$(cat $d/size 2>/dev/null)
+    [ -n "$n" ] && echo "$d sectors=$n bytes=$((n*512))"
+done
+echo "=== ufshcd / lun info ==="
+dmesg | grep -iE "ufshcd|ufs_|lun|scsi host" | head -16
+echo "=== scsi devices ==="
+cat /proc/scsi/scsi 2>/dev/null | head -20

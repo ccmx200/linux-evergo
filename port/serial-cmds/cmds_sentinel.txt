@@ -1,0 +1,14 @@
+echo "=== 1. baseline after boot (probe already failed) ==="
+dmesg | grep -iE "FW_START|Fail reason" | tail -2
+echo "=== 2. sentinel: does the STP link still work AFTER the failed WIFI_START? ==="
+echo 1 > /proc/conn_stp
+sleep 6
+dmesg | grep "stp:" | tail -8
+echo "=== 3. MCU state right now ==="
+echo "r 0x18002600" > /proc/conn_reg
+sleep 1
+echo "r 0x18007104" > /proc/conn_reg
+sleep 1
+echo "r 0x180c1140" > /proc/conn_reg
+sleep 1
+dmesg | grep -E "reg r 0x180" | tail -3

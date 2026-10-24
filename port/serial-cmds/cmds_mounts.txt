@@ -1,0 +1,8 @@
+echo ===M1_MOUNTS===
+cat /proc/mounts
+echo ===M2_LSROOT===
+ls /
+echo ===M3_PID1===
+cat /proc/1/cmdline
+echo
+echo ===DONE===

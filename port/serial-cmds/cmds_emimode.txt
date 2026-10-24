@@ -1,0 +1,7 @@
+echo "r 0x180C1168" > /proc/conn_reg
+echo "r 0x180C1160" > /proc/conn_reg
+echo "r 0x180C1170" > /proc/conn_reg
+echo "r 0x180C1174" > /proc/conn_reg
+echo "r 0x18002150" > /proc/conn_reg
+sleep 2
+dmesg | grep -i "reg r 0x180c11\|reg r 0x18002150" | tail -6

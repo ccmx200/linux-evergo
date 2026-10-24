@@ -1,0 +1,10 @@
+echo "=== loop devices ==="
+ls /dev/loop* 2>/dev/null || echo "NO loop nodes"
+echo "=== losetup available? ==="
+which losetup; busybox losetup --help 2>&1 | head -2
+echo "=== f2fs magic at userdata offset+1024 ==="
+dd if=/dev/sdc bs=1 skip=12952011776 count=8 2>/dev/null | hexdump -C
+echo "=== ext4 magic at +1080 ==="
+dd if=/dev/sdc bs=1 skip=12952011832 count=2 2>/dev/null | hexdump -C
+echo "=== first 16 bytes at offset ==="
+dd if=/dev/sdc bs=1 skip=12952010752 count=16 2>/dev/null | hexdump -C

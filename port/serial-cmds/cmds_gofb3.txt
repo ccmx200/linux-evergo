@@ -1,0 +1,7 @@
+echo "=== write boot-fastboot to misc and reboot ==="
+ls -l /sbin/gofastboot 2>/dev/null
+sync
+/sbin/gofastboot 2>&1 | tail -3
+echo "reboot now"
+sync
+reboot -f

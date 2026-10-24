@@ -1,0 +1,2 @@
+dmesg | grep -c stp
+dmesg | grep stp | tail -12

@@ -1,0 +1,13 @@
+echo ===E1_REMOUNT_RW===
+mount -o remount,rw /newroot && echo RW_OK || echo RW_FAIL
+echo ===E2_ADD_GETTY===
+echo 'ttyGS0::respawn:/bin/sh' >> /newroot/etc/inittab && echo APPEND_OK || echo APPEND_FAIL
+echo ===E3_TAIL===
+tail -4 /newroot/etc/inittab
+echo ===E4_ROOTSH===
+echo 'root::0:0:root:/root:/bin/sh' > /newroot/etc/passwd
+cat /newroot/etc/passwd
+echo ===E5_SYNC===
+sync
+mount -o remount,ro /newroot
+echo ===DONE===

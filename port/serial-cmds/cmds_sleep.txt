@@ -1,0 +1,2 @@
+dmesg | grep -iE "bus protect|idle check|CPU state" | head -10
+dmesg | grep -iE "wmt-shim|hifAxiProbe|DRIVER OWN|SetDriverOwn|wlanProbe" | head -12

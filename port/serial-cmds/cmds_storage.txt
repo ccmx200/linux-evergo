@@ -1,0 +1,6 @@
+echo "=== partitions ==="
+cat /proc/partitions
+echo "=== block devices ==="
+ls /dev/sd* /dev/mmcblk* /dev/block 2>/dev/null | head -20
+echo "=== scsi/ufs in dmesg ==="
+dmesg | grep -iE "ufs|scsi|mmc0|mmc1|sdhci" | head -12

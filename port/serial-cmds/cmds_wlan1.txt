@@ -1,0 +1,5 @@
+dmesg | grep -iE "wmt-shim|mtk_axi|pfWlanProbe|wlan_probe" | head -30
+dmesg | grep -iE "WIFI_RAM_CODE|Request FW|request_firmware|kalFirmware" | head -20
+dmesg | grep -iE "cfg80211|wiphy" | head -15
+ls /sys/class/ieee80211
+dmesg | grep -icE "error|fail"

@@ -1,0 +1,6 @@
+echo "=== sdc first 20 bytes (looking for EVERGOPROBE) ==="
+dd if=/dev/sdc bs=1 count=20 2>/dev/null | hexdump -C
+echo "=== sda first 20 ==="
+dd if=/dev/sda bs=1 count=20 2>/dev/null | hexdump -C
+echo "=== sdb first 20 ==="
+dd if=/dev/sdb bs=1 count=20 2>/dev/null | hexdump -C

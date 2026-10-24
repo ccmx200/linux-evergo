@@ -1,0 +1,9 @@
+ls -d /sys/kernel/debug/wlan* /sys/kernel/debug/mtk* /sys/kernel/debug/conn* 2>/dev/null
+echo ===
+ls /sys/kernel/debug/wlan 2>/dev/null
+echo === SRAM ===
+echo "r 0x18070000" > /proc/conn_reg
+echo "r 0x18070400" > /proc/conn_reg
+echo "r 0x18071000" > /proc/conn_reg
+sleep 2
+dmesg | grep "reg r 0x1807" | tail -4

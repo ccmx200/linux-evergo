@@ -1,0 +1,7 @@
+echo === WRITE AND CLEAN REBOOT ===
+sync
+printf 'boot-fastboot' | dd of=/dev/sdc bs=1 seek=32768 conv=notrunc 2>&1 | tail -1
+sync
+dd if=/dev/sdc bs=1 skip=32768 count=16 2>/dev/null | od -A n -t c
+sleep 1
+reboot

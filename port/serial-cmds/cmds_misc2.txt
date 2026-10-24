@@ -1,0 +1,8 @@
+echo ===M1_WRITE_MISC===
+dd if=/dev/zero of=/dev/sdc1 bs=1 count=32 conv=notrunc
+printf bootloader | dd of=/dev/sdc1 bs=1 conv=notrunc
+sync
+cat /dev/sdc1
+echo ===M2_REBOOT===
+sync
+busybox reboot

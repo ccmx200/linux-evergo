@@ -1,0 +1,8 @@
+echo "=== f2fs magic at offset 1024 (expect 10 20 f5 f2) ==="
+dd if=/dev/sdc bs=1 skip=1024 count=8 2>/dev/null | hexdump -C
+echo "=== offset 0 ==="
+dd if=/dev/sdc bs=512 count=1 2>/dev/null | hexdump -C | head -3
+echo "=== try mount again ==="
+mount -t f2fs -o ro /dev/sdc /mnt 2>&1
+echo "=== dmesg tail ==="
+dmesg | tail -6

@@ -1,0 +1,4 @@
+dmesg | grep -iE "adie:" | head -6
+dmesg | grep -iE "identify_adie|idle check|monflg" | head -5
+dmesg | grep -iE "Driver own timeout|firmware|RAM_CODE|probe failed" | head -6
+ls /sys/class/net/
