@@ -51,17 +51,17 @@
 
 			trips {
 				cpu0_passive0: trip-cpu0_passive0 {
-					temperature = <80000>;
+					temperature = <85000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu0_passive1: trip-cpu0_passive1 {
-					temperature = <90000>;
+					temperature = <95000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu0_passive2: trip-cpu0_passive2 {
-					temperature = <100000>;
+					temperature = <105000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
@@ -93,17 +93,17 @@
 
 			trips {
 				cpu1_passive0: trip-cpu1_passive0 {
-					temperature = <80000>;
+					temperature = <85000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu1_passive1: trip-cpu1_passive1 {
-					temperature = <90000>;
+					temperature = <95000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu1_passive2: trip-cpu1_passive2 {
-					temperature = <100000>;
+					temperature = <105000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
@@ -135,17 +135,17 @@
 
 			trips {
 				cpu2_passive0: trip-cpu2_passive0 {
-					temperature = <80000>;
+					temperature = <85000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu2_passive1: trip-cpu2_passive1 {
-					temperature = <90000>;
+					temperature = <95000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu2_passive2: trip-cpu2_passive2 {
-					temperature = <100000>;
+					temperature = <105000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
@@ -177,17 +177,17 @@
 
 			trips {
 				cpu3_passive0: trip-cpu3_passive0 {
-					temperature = <80000>;
+					temperature = <85000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu3_passive1: trip-cpu3_passive1 {
-					temperature = <90000>;
+					temperature = <95000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu3_passive2: trip-cpu3_passive2 {
-					temperature = <100000>;
+					temperature = <105000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
@@ -219,17 +219,17 @@
 
 			trips {
 				cpu4_passive0: trip-cpu4_passive0 {
-					temperature = <80000>;
+					temperature = <85000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu4_passive1: trip-cpu4_passive1 {
-					temperature = <90000>;
+					temperature = <95000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu4_passive2: trip-cpu4_passive2 {
-					temperature = <100000>;
+					temperature = <105000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
@@ -261,17 +261,17 @@
 
 			trips {
 				cpu5_passive0: trip-cpu5_passive0 {
-					temperature = <80000>;
+					temperature = <85000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu5_passive1: trip-cpu5_passive1 {
-					temperature = <90000>;
+					temperature = <95000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				cpu5_passive2: trip-cpu5_passive2 {
-					temperature = <100000>;
+					temperature = <105000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
@@ -303,12 +303,12 @@
 
 			trips {
 				gpu_passive0: trip-gpu_passive0 {
-					temperature = <80000>;
+					temperature = <85000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				gpu_passive1: trip-gpu_passive1 {
-					temperature = <90000>;
+					temperature = <95000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
@@ -336,12 +336,12 @@
 
 			trips {
 				gpu1_passive0: trip-gpu1_passive0 {
-					temperature = <80000>;
+					temperature = <85000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				gpu1_passive1: trip-gpu1_passive1 {
-					temperature = <90000>;
+					temperature = <95000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
@@ -369,12 +369,12 @@
 
 			trips {
 				soc_passive0: trip-soc_passive0 {
-					temperature = <85000>;
+					temperature = <90000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
 				soc_passive1: trip-soc_passive1 {
-					temperature = <95000>;
+					temperature = <100000>;
 					hysteresis = <2000>;
 					type = "passive";
 				};
