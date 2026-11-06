@@ -22,6 +22,7 @@
 #include <dt-bindings/interrupt-controller/irq.h>
 #include <dt-bindings/iio/adc/mediatek,mt6359-auxadc.h>
 #include <dt-bindings/leds/common.h>
+#include <dt-bindings/usb/pd.h>
 #include <dt-bindings/pinctrl/mediatek,mt6833-pinfunc.h>
 
 #include "mt6833.dtsi"
@@ -1181,6 +1182,14 @@
 			bias-pull-up;
 		};
 	};
+
+	tcpc_irq_pins: tcpc-irq-pins {
+		pins-irq {
+			pinmux = <PINMUX_GPIO9__FUNC_GPIO9>;
+			input-enable;
+			bias-pull-up;
+		};
+	};
 };
 
 &soc {
@@ -1263,6 +1272,36 @@
 			mt6360_chg: charger {
 				compatible = "mediatek,mt6360-chg";
 				richtek,vinovp-microvolt = <6500000>;
+			};
+
+			/*
+			 * MT6360 Type-C/PD controller.  GPIO9 is PD_IRQB (GPIO10 is
+			 * the PMIC IRQB handled by the mfd).  The connector is kept
+			 * sink-only: the USB data path stays the NCM gadget, this
+			 * node only enables Type-C role detection and USB-PD
+			 * contract negotiation (5 V / 9 V sink PDOs).
+			 */
+			mt6360_tcpc: tcpc {
+				compatible = "mediatek,mt6360-tcpc";
+				interrupts-extended = <&pio 9 IRQ_TYPE_LEVEL_LOW>;
+				interrupt-names = "PD_IRQB";
+				pinctrl-names = "default";
+				pinctrl-0 = <&tcpc_irq_pins>;
+
+				connector {
+					compatible = "usb-c-connector";
+					label = "USB-C";
+					data-role = "device";
+					power-role = "sink";
+					try-power-role = "sink";
+					sink-pdos = <PDO_FIXED(5000, 2000,
+						PDO_FIXED_DUAL_ROLE |
+						PDO_FIXED_DATA_SWAP)
+						PDO_FIXED(9000, 2000,
+						PDO_FIXED_DUAL_ROLE |
+						PDO_FIXED_DATA_SWAP)>;
+					op-sink-microwatt = <10000000>;
+				};
 			};
 
 			led-controller {
