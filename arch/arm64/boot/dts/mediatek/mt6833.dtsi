@@ -423,6 +423,12 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 
+		/*
+		 * The two clusters are exposed as one MC domain so lscpu /
+		 * gnome-system-monitor report 8 physical cores in one socket;
+		 * capacity-dmips-mhz still marks cpu6/cpu7 as the big cores.
+		 * (Two clusters would show as two sockets of 6+2 cores.)
+		 */
 		cpu-map {
 			cluster0 {
 				core0 {
@@ -440,7 +446,7 @@
 				core3 {
 					cpu = <&cpu3>;
 				};
-				
+
 				core4 {
 					cpu = <&cpu4>;
 				};
@@ -448,14 +454,12 @@
 				core5 {
 					cpu = <&cpu5>;
 				};
-			};
 
-			cluster1 {
-				core0 {
+				core6 {
 					cpu = <&cpu6>;
 				};
 
-				core1 {
+				core7 {
 					cpu = <&cpu7>;
 				};
 			};
