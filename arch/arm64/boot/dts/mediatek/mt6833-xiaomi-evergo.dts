@@ -299,7 +299,7 @@
 		};
 		/* reserved by LK at boot (mblock); must not be used by Linux */
 		memory@1bffff000 {
-			reg = <0 0x1bffff000 0 0x1000>;
+			reg = <0x1 0xbffff000 0 0x1000>;
 			no-map;
 		};
 		/* reserved by LK at boot (mblock); must not be used by Linux */
