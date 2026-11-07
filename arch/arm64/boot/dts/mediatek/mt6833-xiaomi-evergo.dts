@@ -1658,36 +1658,54 @@
 			opp-hz = /bits/ 64 <2000000000>;
 			opp-microvolt = <993750>;
 		};
+
+		/* vendor B24G bin: A76 up to 2.4 GHz (EEM voltages + margin) */
+		opp-2118000000 {
+			opp-hz = /bits/ 64 <2118000000>;
+			opp-microvolt = <1010000>;
+		};
+		opp-2203000000 {
+			opp-hz = /bits/ 64 <2203000000>;
+			opp-microvolt = <1030000>;
+		};
+		opp-2306000000 {
+			opp-hz = /bits/ 64 <2306000000>;
+			opp-microvolt = <1060000>;
+		};
+		opp-2400000000 {
+			opp-hz = /bits/ 64 <2400000000>;
+			opp-microvolt = <1090000>;
+		};
 	};
 };
 
 /*
  * CPU rails (vendor mapping on MT6833): big cluster = VGPU11 + VSRAM_PROC1,
  * LITTLE + CCI = VPROC2 + VSRAM_PROC2. Cap them at the vendor Vproc/Vsram
- * ceiling (1.0 V) and keep them enabled; nothing changes until cpufreq asks
+ * ceiling (VPROC 1.2 V / VSRAM 1.25 V, needed by the 2.4 GHz OPPs) and keep them enabled; nothing changes until cpufreq asks
  * for an OPP, and they are never switched off behind the CPU's back.
  */
 &mt6359_vgpu11_buck_reg {
 	regulator-min-microvolt = <600000>;
-	regulator-max-microvolt = <1000000>;
+	regulator-max-microvolt = <1200000>;
 	regulator-always-on;
 };
 
 &mt6359_vproc2_buck_reg {
 	regulator-min-microvolt = <600000>;
-	regulator-max-microvolt = <1000000>;
+	regulator-max-microvolt = <1200000>;
 	regulator-always-on;
 };
 
 &mt6359_vsram_proc1_ldo_reg {
 	regulator-min-microvolt = <750000>;
-	regulator-max-microvolt = <1000000>;
+	regulator-max-microvolt = <1250000>;
 	regulator-always-on;
 };
 
 &mt6359_vsram_proc2_ldo_reg {
 	regulator-min-microvolt = <750000>;
-	regulator-max-microvolt = <1000000>;
+	regulator-max-microvolt = <1250000>;
 	regulator-always-on;
 };
 
