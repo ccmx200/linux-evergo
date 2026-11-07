@@ -714,6 +714,8 @@
 		opp-950000000 { opp-hz = /bits/ 64 <950000000>; opp-microvolt = <781250>; };
 		/* sign-off 1000 MHz; needs frequency hopping on real vendor firmware */
 		opp-1000000000 { opp-hz = /bits/ 64 <1000000000>; opp-microvolt = <800000>; };
+		/* sign-off max; 850 mV, right at the MFGPLL PCW limit */
+		opp-1068000000 { opp-hz = /bits/ 64 <1068000000>; opp-microvolt = <850000>; };
 	};
 };
 
