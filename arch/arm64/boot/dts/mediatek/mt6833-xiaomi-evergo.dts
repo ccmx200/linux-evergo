@@ -710,6 +710,8 @@
 		opp-700000000 { opp-hz = /bits/ 64 <700000000>; opp-microvolt = <781250>; };
 		opp-790000000 { opp-hz = /bits/ 64 <790000000>; opp-microvolt = <781250>; };
 		opp-880000000 { opp-hz = /bits/ 64 <880000000>; opp-microvolt = <781250>; };
+		/* vendor sign-off: 950 MHz for this GPU segment */
+		opp-950000000 { opp-hz = /bits/ 64 <950000000>; opp-microvolt = <781250>; };
 	};
 };
 
