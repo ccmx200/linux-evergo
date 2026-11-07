@@ -326,7 +326,7 @@
 				};
 				gpu_map1: map-gpu_map1 {
 					trip = <&gpu_passive1>;
-					cooling-device = <&gpu 2 6>;
+					cooling-device = <&gpu 2 7>;
 				};
 			};
 		};
@@ -359,7 +359,7 @@
 				};
 				gpu1_map1: map-gpu1_map1 {
 					trip = <&gpu1_passive1>;
-					cooling-device = <&gpu 2 6>;
+					cooling-device = <&gpu 2 7>;
 				};
 			};
 		};
