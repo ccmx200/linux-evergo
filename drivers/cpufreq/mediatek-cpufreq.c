@@ -724,9 +724,9 @@ static const struct mtk_cpufreq_platform_data mt7988_platform_data = {
 static const struct mtk_cpufreq_platform_data mt6833_platform_data = {
 	.min_volt_shift = 100000,
 	.max_volt_shift = 250000,
-	.proc_max_volt = 1000000,
+	.proc_max_volt = 1150000,
 	.sram_min_volt = 750000,
-	.sram_max_volt = 1000000,
+	.sram_max_volt = 1250000,
 	.ccifreq_supported = false,
 };
 
